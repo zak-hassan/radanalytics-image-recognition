@@ -3,16 +3,20 @@ import ClassificationResult from './ClassificationResult.jsx'
 import $ from 'jquery'
 
 class Classifier extends Component {
-
   classify(file) {
-    const url = '/api/v1/imgrecogize';
+    var formData = new FormData();
+    formData.append('file', file);
+
+    const url = '/api/v1/imgrecognize';
     $.ajax({
       type: 'POST',
       url,
-      data:file,
+      data: formData,
+      processData: false,
+      contentType: false,
       success: (result) => this.props.setClassificationState(result.preds),
       error: () => console.log('Image classification failed'),
-      dataType: 'json',
+      dataType: 'form-data',
     })
   }
 
