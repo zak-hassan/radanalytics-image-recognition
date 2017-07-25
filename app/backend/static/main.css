@@ -1,0 +1,17 @@
+.cards {
+        margin: 0 auto;
+        float: none;
+        margin-bottom: 10px;
+}
+
+.dropzone {
+        width: 250px;
+        height: 250px;
+        max-width: 75%;
+        max-height: 75%;
+        border-width: 2px;
+        border-color: #0088ce;
+        border-style: dashed;
+        border-radius: 5px;
+        margin: auto;
+}

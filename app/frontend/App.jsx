@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import ImageUploader from './Components/ImageUploader.jsx'
 import Classifier from './Components/Classifier.jsx'
+import Navbar from './Components/NavBar.jsx'
 
 export default class App extends Component {
 
@@ -23,12 +24,18 @@ export default class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        Upload an image
-        <ImageUploader setFileState={this.setFileState.bind(this)} />
-        <Classifier setClassificationState={this.setClassificationState.bind(this)}
-          file={this.state.file} classification={this.state.classification}/>
-      </div>
+        <div className="app">
+          <Navbar />
+            <div className="container-fluid container-cards-pf">
+              <div className="col col-cards-pf">
+                <div className="cards col-xs-10 col-md-8 ">
+                  <ImageUploader setFileState={this.setFileState.bind(this)} />
+                  <Classifier setClassificationState={this.setClassificationState.bind(this)}
+                    file={this.state.file} classification={this.state.classification}/>
+                </div>
+              </div>
+            </div>
+        </div>
     );
   }
 }

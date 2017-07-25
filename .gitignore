@@ -80,5 +80,5 @@ node_modules/
 bin/
 include/
 pip-selfcheck.json
-
-app/backend/static/bundle.js
+*.swp
+app/static/build/

@@ -1,10 +1,8 @@
-from flask import jsonify
-from flask import request
+from flask import jsonify, request, Response, Blueprint, render_template
+from flask import current_app as app
 import os.path
 from werkzeug.utils import secure_filename
 import json
-from flask import Blueprint, render_template
-from flask import current_app as app
 
 try:
     # Python2
@@ -43,4 +41,6 @@ def img_recognize():
                           (0.15, 'custard apple'),
                           (0.12, 'earthstar')]}
 
-    return json.dumps(mock_data), 200, {'ContentType': 'application/json'}
+    return Response(
+        json.dumps(mock_data),
+        status=200, mimetype="application/json")
