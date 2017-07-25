@@ -10,13 +10,14 @@ class Classifier extends Component {
     const url = '/api/v1/imgrecognize';
     $.ajax({
       type: 'POST',
-      url,
+      url: url,
       data: formData,
-      processData: false,
       contentType: false,
-      success: (result) => this.props.setClassificationState(result.preds),
+      processData: false,
+      success: function(result) {
+          this.props.setClassificationState(result.pred)
+      }.bind(this),
       error: () => console.log('Image classification failed'),
-      dataType: 'form-data',
     })
   }
 
@@ -31,16 +32,26 @@ class Classifier extends Component {
     if(this.props.classification) {
       classificationResults = this.props.classification.map(result => {
         return (
-          <ClassificationResult _class={result[0]} percent={result[1]} />
+          <ClassificationResult key={result[1]} _class={result[1]} value={result[0]} />
         )
       })
+
+      return (
+        <div className="Classifier">
+          <div className="card-pf card-pf-accented">
+            <div className="card-pf-heading">
+              <h2 className="card-pf-title">
+                Classification Results
+              </h2>
+            </div>
+            <div className="card-pf-body">
+              {classificationResults}
+            </div>
+          </div>
+        </div>
+      )
     }
-    return (
-      <div className="Classifier">
-        Classification result
-        {classificationResults}
-      </div>
-    )
+    return null
   }
 }
 
