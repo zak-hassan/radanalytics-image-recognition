@@ -1,6 +1,14 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 class ClassificationResult extends Component {
+
+  static get propTypes(){
+    return {
+      value: PropTypes.number,
+      _class: PropTypes.string
+    }
+  }
 
   render() {
 

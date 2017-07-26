@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import Dropzone from 'react-dropzone'
 
 class ImageUploader extends Component {
@@ -28,3 +29,7 @@ class ImageUploader extends Component {
 }
 
 export default ImageUploader
+
+ImageUploader.propTypes = {
+  setFileState: PropTypes.func
+}

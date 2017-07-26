@@ -1,8 +1,19 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import ClassificationResult from './ClassificationResult.jsx'
 import $ from 'jquery'
 
 class Classifier extends Component {
+
+  static get propTypes(){
+    return {
+      classification: PropTypes.array,
+      file: PropTypes.object,
+      setClassificationState: PropTypes.func,
+      setMessage: PropTypes.func
+    }
+  }
+
   classify(file) {
     var formData = new FormData();
     formData.append('file', file);
@@ -15,19 +26,25 @@ class Classifier extends Component {
       contentType: false,
       processData: false,
       success: function(result) {
+          this.props.setMessage('Successfully uploaded image', 'success')
           this.props.setClassificationState(result.pred)
       }.bind(this),
-      error: () => console.log('Image classification failed'),
+      error: function(error) {
+          this.props.setMessage(error, 'danger')
+      }.bind(this)
     })
+  }
+
+  componentWillUpdate(nextProps) {
+    //file was uploaded, time to classify
+    if(nextProps.file !== this.props.file) {
+      const file = nextProps.file;
+      this.classify(file)
+    }
   }
 
   render() {
     let classificationResults;
-    //file was uploaded, time to classify
-    if(this.props.file) {
-      const file = this.props.file;
-      this.classify(file)
-    }
     //classification exists
     if(this.props.classification) {
       classificationResults = this.props.classification.map(result => {
