@@ -4,6 +4,8 @@ import os.path
 from werkzeug.utils import secure_filename
 import json
 from app.backend.inception import inception
+from infinispan.remotecache import RemoteCache
+import datetime
 
 try:
     # Python2
@@ -49,9 +51,15 @@ def img_recognize():
     scores = model.get_scores(pred=pred, k=5)
     model.close()
 
-    # Send mock data
-    mock_data = {'pred': scores}
+    remote_cache = RemoteCache()
+    time = datetime.datetime.now().strftime("%B-%d-%Y-%I:%M%p")
+    key= filename + time
+    remote_cache.put(key, json.dumps({'pred':scores, 'timestamp': time , 'filename': filename}) )
+    print remote_cache.stats()
+    print "Key: %s" % key
+    # Send data
+    resp = {'pred': scores}
 
     return Response(
-        json.dumps(mock_data),
+        json.dumps(resp),
         status=200, mimetype="application/json")
