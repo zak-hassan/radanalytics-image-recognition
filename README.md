@@ -1,5 +1,6 @@
-# radanalytics-image-recognition
-Radanalytics Image Recognition example
+# Radanalytics Image Recognition with Tensorflow
+
+![alt tag](https://raw.githubusercontent.com/zmhassan/radanalytics-image-recognition/master/imgs/screenshot.png)
 
 # Building and running the application
 Install all python dependencies
