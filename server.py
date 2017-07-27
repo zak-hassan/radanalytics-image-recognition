@@ -15,6 +15,7 @@ def create_app(config=None):
 
     template_directory = join(working_dir, 'app', 'backend', 'templates')
     static_directory = join(working_dir, 'app', 'backend', 'static')
+    inception_dir = join(working_dir, 'app', 'backend', 'inception', '.model')
 
     flask_app = Flask(
         __name__,
@@ -27,16 +28,21 @@ def create_app(config=None):
     flask_app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     flask_app.config['IMAGE_FILE'] = DEFAULT_IMAGE_NAME
     flask_app.config['ALLOWED_EXTENSIONS'] = ALLOWED_EXTENSIONS
+    flask_app.config['INCEPTION_MODEL'] = inception_dir
 
     return flask_app
 
 
 def register_blueprints(flask_app):
     """Register all blueprint modules"""
-    for name in find_modules('app.backend.blueprints'):
-        mod = import_string(name)
-        if hasattr(mod, 'basepage'):
-            flask_app.register_blueprint(mod.basepage)
+
+    from app.backend.blueprints.base import basepage
+    flask_app.register_blueprint(basepage)
+
+    # for name in find_modules('app.backend.blueprints'):
+    #     mod = import_string(name)
+    #     if hasattr(mod, 'basepage'):
+    #         flask_app.register_blueprint(mod.basepage)
     return None
 
 
