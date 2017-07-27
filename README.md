@@ -26,4 +26,12 @@ Rebuild webpack when frontend file change occurs
 npm run dev
 ```
 
+# Dependencies
 
+
+The rest api stores results in jdg cache. You will need docker to run.
+To run JDG you need to execute the following:
+
+```bash
+./run-jdg-docker.sh
+```
