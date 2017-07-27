@@ -1,6 +1,7 @@
-from flask import jsonify, request, Response, Blueprint, render_template
+from flask import jsonify, request, Response, Blueprint, render_template, send_file
 from flask import current_app as app
 import os.path
+import os
 from werkzeug.utils import secure_filename
 import json
 from app.backend.inception import inception
@@ -27,6 +28,18 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in \
            app.config['ALLOWED_EXTENSIONS']
 
+
+
+@basepage.route("/api/v1/images", methods=['POST','GET'])
+def get_images():
+    return Response(
+        json.dumps(os.listdir(app.config['UPLOAD_FOLDER'])),
+        status=200, mimetype="application/json")
+
+@basepage.route("/api/v1/images/<image_name>")
+def serve_image(image_name):
+    path= app.config['UPLOAD_FOLDER'] + "/"+ image_name;
+    return send_file( path, mimetype='image/jpeg' )
 
 @basepage.route("/api/v1/imgrecognize", methods=['POST', 'GET'])
 def img_recognize():
