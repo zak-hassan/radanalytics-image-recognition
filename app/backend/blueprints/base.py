@@ -3,6 +3,7 @@ from flask import current_app as app
 import os.path
 from werkzeug.utils import secure_filename
 import json
+from app.backend.inception import inception
 
 try:
     # Python2
@@ -28,18 +29,28 @@ def allowed_file(filename):
 @basepage.route("/api/v1/imgrecognize", methods=['POST', 'GET'])
 def img_recognize():
 
+    if not os.path.exists(app.config['UPLOAD_FOLDER']):
+        os.makedirs(app.config['UPLOAD_FOLDER'])
+
     file = request.files['file']
 
-    if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    # TODO :
+    #if file and allowed_file(file.filename):
+
+    filename = secure_filename(file.filename)
+    img_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    file.save(img_path)
+
+    # Use Inception Model
+    inception.data_dir = app.config['INCEPTION_MODEL']
+    inception.maybe_download()
+    model = inception.Inception()
+    pred = model.classify(image_path=img_path)
+    scores = model.get_scores(pred=pred, k=5)
+    model.close()
 
     # Send mock data
-    mock_data = {'pred': [(89.11, 'giant panda'),
-                          (0.78, 'indri'),
-                          (0.30, 'lesser panda'),
-                          (0.15, 'custard apple'),
-                          (0.12, 'earthstar')]}
+    mock_data = {'pred': scores}
 
     return Response(
         json.dumps(mock_data),
