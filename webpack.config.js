@@ -9,9 +9,12 @@ module.exports = {
             {
                 test: /\.jsx$/,
                 exclude: /(node_modules|bower_components)/,
-                use: {
-                    loader: 'babel-loader',
-                }
+                loader: 'babel-loader',
+            },
+            {
+                test: /\.jsx$/,
+                exclude: /(node_modules|bower_components)/,
+                loaders: ['babel-loader', 'eslint-loader'],
             },
         ]
     },
@@ -41,4 +44,4 @@ module.exports = {
           }
       ]),
     ]
-}
+};
