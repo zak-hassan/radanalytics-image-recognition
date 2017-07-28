@@ -42,10 +42,10 @@ export default class App extends Component {
             <div className="container-fluid container-cards-pf">
               <div className="col col-cards-pf">
                 <div className="cards col-xs-10 col-md-8 ">
-                  <ImageUploader setFileState={this.setFileState.bind(this)} />
+                  <ImageUploader setFileState={this.setFileState.bind(this)} file={this.state.file}/>
                   <Classifier setClassificationState={this.setClassificationState.bind(this)}
                     file={this.state.file} classification={this.state.classification} setMessage={this.setMessage.bind(this)}
-                      message={this.state.message} setVis={this.setMessageVisible.bind(this)}/>
+                      message={this.state.message} setMessageVis={this.setMessageVisible.bind(this)} setFileState={this.setFileState.bind(this)}/>
                 </div>
               </div>
             </div>

@@ -10,11 +10,18 @@ class Classifier extends Component {
       classification: PropTypes.array,
       file: PropTypes.object,
       setClassificationState: PropTypes.func,
-      setMessage: PropTypes.func
+      setMessage: PropTypes.func,
+      setMessageVis: PropTypes.func,
+      setFileState: PropTypes.func
     }
   }
 
   classify(file) {
+    //clear previous state
+    this.props.setClassificationState(null)
+    //clear previous message
+    this.props.setMessageVis(false)
+
     var formData = new FormData();
     formData.append('file', file);
 
@@ -26,17 +33,18 @@ class Classifier extends Component {
       contentType: false,
       processData: false,
       success: function(result) {
-          this.props.setMessage('Successfully uploaded image', 'success')
+          this.props.setMessage('Successfully classified image', 'success')
           this.props.setClassificationState(result.pred)
       }.bind(this),
       error: function(error) {
+          this.props.setFileState(null)
           this.props.setMessage(error, 'danger')
       }.bind(this)
     })
   }
 
   componentWillUpdate(nextProps) {
-    //file was uploaded, time to classify
+    //file a new file was uploaded, time to classify
     if(nextProps.file !== this.props.file) {
       const file = nextProps.file;
       this.classify(file)
@@ -44,7 +52,7 @@ class Classifier extends Component {
   }
 
   render() {
-    let classificationResults;
+    let classificationResults
     //classification exists
     if(this.props.classification) {
       classificationResults = this.props.classification.map(result => {
@@ -52,7 +60,13 @@ class Classifier extends Component {
           <ClassificationResult key={result[1]} _class={result[1]} value={result[0]} />
         )
       })
+    //otherwise, load a spinner
+    } else {
+      classificationResults = <div className="spinner spinner-xs spinner-inline"></div>
+    }
 
+    //if a file is uploaded, display results
+    if(this.props.file) {
       return (
         <div className="Classifier">
           <div className="card-pf card-pf-accented">

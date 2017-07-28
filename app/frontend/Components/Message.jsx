@@ -24,7 +24,7 @@ class Message extends Component {
 
       return (
         <div >
-          <div className={"alert alert-" +type+ " alert-dismissable"}>
+          <div className={"alert alert-" + type + " alert-dismissable"}>
             <button type="button" className="close" data-dismiss="alert" aria-hidden="true" onClick={this.handleClick.bind(this)}>
               <span className="pficon pficon-close"></span>
             </button>

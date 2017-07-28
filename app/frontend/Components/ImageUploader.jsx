@@ -4,6 +4,13 @@ import Dropzone from 'react-dropzone'
 
 class ImageUploader extends Component {
 
+  static get propTypes() {
+    return {
+      setFileState: PropTypes.func,
+      file: PropTypes.object
+    }
+  }
+
   onDrop(uploadFile) {
     this.props.setFileState(uploadFile[0])
   }
@@ -20,6 +27,7 @@ class ImageUploader extends Component {
             <Dropzone
               className="dropzone"
               onDrop={(files) => this.onDrop(files)}>
+              {(this.props.file) && <img className="dropzone-image" src={this.props.file.preview}/>}
             </Dropzone>
           </div>
         </div>
@@ -29,7 +37,3 @@ class ImageUploader extends Component {
 }
 
 export default ImageUploader
-
-ImageUploader.propTypes = {
-  setFileState: PropTypes.func
-}

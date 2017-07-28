@@ -14,4 +14,12 @@
         border-style: dashed;
         border-radius: 5px;
         margin: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+}
+
+.dropzone-image {
+        width: 85%;
+        height: 85%;
 }
