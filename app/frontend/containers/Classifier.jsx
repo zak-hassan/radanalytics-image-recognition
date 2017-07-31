@@ -1,52 +1,21 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import ClassificationResult from './ClassificationResult.jsx'
-import $ from 'jquery'
+
+import ClassificationResult from '../components/ClassificationResult.jsx'
+import { setImageClassification } from '../actions/imageClassifierActions'
 
 class Classifier extends Component {
 
-  static get propTypes(){
-    return {
-      classification: PropTypes.array,
-      file: PropTypes.object,
-      setClassificationState: PropTypes.func,
-      setMessage: PropTypes.func,
-      setMessageVis: PropTypes.func,
-      setFileState: PropTypes.func
-    }
-  }
-
   classify(file) {
-    //clear previous state
-    this.props.setClassificationState(null)
-    //clear previous message
-    this.props.setMessageVis(false)
-
-    var formData = new FormData();
-    formData.append('file', file);
-
-    const url = '/api/v1/imgrecognize';
-    $.ajax({
-      type: 'POST',
-      url: url,
-      data: formData,
-      contentType: false,
-      processData: false,
-      success: function(result) {
-          this.props.setMessage('Successfully classified image', 'success')
-          this.props.setClassificationState(result.pred)
-      }.bind(this),
-      error: function(error) {
-          this.props.setFileState(null)
-          this.props.setMessage(error, 'danger')
-      }.bind(this)
-    })
+    //set classification
+    this.props.setImageClassification(file)
   }
 
   componentWillUpdate(nextProps) {
     //file a new file was uploaded, time to classify
     if(nextProps.file !== this.props.file) {
-      const file = nextProps.file;
+      const file = nextProps.file
       this.classify(file)
     }
   }
@@ -86,4 +55,19 @@ class Classifier extends Component {
   }
 }
 
-export default Classifier
+const mapStateToProps = (state) => {
+  return {
+    file: state.imageClassificationReducer.file,
+    classification: state.imageClassificationReducer.classification
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+      setImageClassification: (file) => {
+          dispatch(setImageClassification(file))
+      }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Classifier)
