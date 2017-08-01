@@ -36,6 +36,34 @@ def get_images():
         json.dumps(os.listdir(app.config['UPLOAD_FOLDER'])),
         status=200, mimetype="application/json")
 
+@basepage.route("/api/v1/historyServer", methods=['GET'])
+def get_history():
+    mock_data={
+ 	"last_transaction": "july-27-4:00pm",
+	"time_taken": "2.5s",
+	"num_pages": 2,
+	"num_results": 12,
+	"results": {
+		"tiger.jpeg": [
+			[84.1865, "tiger"],
+			[6.1492, "tiger cat"],
+			[0.1738, "lynx"],
+			[0.1387, "jaguar"],
+			[0.1313, "leopard"]
+		],
+		"weasle.jpeg": [
+			[58.4949, "weasel"],
+			[24.103, "polecat"],
+			[4.4645, "black-footed ferret"],
+			[2.3972, "mink"],
+			[0.1152, "otter"]
+		]
+    	}
+    }
+    return Response(json.dumps(mock_data), status=200, mimetype="application/json")
+
+
+
 @basepage.route("/api/v1/images/<image_name>")
 def serve_image(image_name):
     path= app.config['UPLOAD_FOLDER'] + "/"+ image_name;
