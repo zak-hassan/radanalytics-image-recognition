@@ -2,20 +2,18 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: [
-        './app/frontend/App.jsx'
+        './app/frontend/index.jsx'
     ],
     module: {
         rules: [
             {
-                test: /\.jsx$/,
+                test: /\.(jsx|js)$/,
                 exclude: /(node_modules|bower_components)/,
                 loader: 'babel-loader',
-            },
-            {
-                test: /\.jsx$/,
-                exclude: /(node_modules|bower_components)/,
-                loaders: ['babel-loader', 'eslint-loader'],
-            },
+                query: {
+                    presets: ["react", "es2015", "stage-2"]
+                }
+            }
         ]
     },
     output: {

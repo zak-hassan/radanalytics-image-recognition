@@ -19,11 +19,11 @@ class ClassificationResult extends Component {
         <div className="progress-description">
         {this.props._class}
         </div>
-        <div className="progress progress-label-top-right">
+          <div className="progress progress-label-top-right">
             <div className="progress-bar progress-bar-success" role="progressbar" aria-valuenow={this.props.value} aria-valuemin="0" aria-valuemax="100" style={{width: barWidth}} >
-            <span>{this.props._class} - {this.props.value}</span>
+              <span>{this.props._class} - {this.props.value}</span>
+            </div>
           </div>
-        </div>
       </div>
     )
   }

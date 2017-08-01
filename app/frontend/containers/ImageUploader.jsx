@@ -1,15 +1,18 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Dropzone from 'react-dropzone'
+
+import { setUploadFile } from '../actions/imageClassifierActions'
 
 class ImageUploader extends Component {
 
   onDrop(uploadFile) {
-    this.props.setFileState(uploadFile[0])
+    //set new image
+    this.props.setUploadFile(uploadFile[0])
   }
 
   render() {
-
     return (
       <div className="ImageUploader">
         <div className="card-pf card-pf-accented">
@@ -20,6 +23,7 @@ class ImageUploader extends Component {
             <Dropzone
               className="dropzone"
               onDrop={(files) => this.onDrop(files)}>
+              {(this.props.file) && <img className="dropzone-image" src={this.props.file.preview}/>}
             </Dropzone>
           </div>
         </div>
@@ -28,8 +32,18 @@ class ImageUploader extends Component {
   }
 }
 
-export default ImageUploader
-
-ImageUploader.propTypes = {
-  setFileState: PropTypes.func
+const mapStateToProps = (state) => {
+  return {
+    file: state.imageClassificationReducer.file
+  }
 }
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setUploadFile: (file) => {
+            dispatch(setUploadFile(file))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ImageUploader)

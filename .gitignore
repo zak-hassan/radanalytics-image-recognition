@@ -81,4 +81,6 @@ bin/
 include/
 pip-selfcheck.json
 *.swp
+*.log
 app/static/build/
+app/backend/inception/.model/
