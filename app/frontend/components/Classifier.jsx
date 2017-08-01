@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import ClassificationResult from '../components/ClassificationResult.jsx'
@@ -55,19 +54,4 @@ class Classifier extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    file: state.imageClassificationReducer.file,
-    classification: state.imageClassificationReducer.classification
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-      setImageClassification: (file) => {
-          dispatch(setImageClassification(file))
-      }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Classifier)
+export default Classifier
