@@ -1,16 +1,17 @@
 export function getIcon(messageType) {
-  let icon
+  let icon;
   switch(messageType){
     case 'danger':
-      icon = 'error-circle-o'
-      break
+      icon = 'error-circle-o';
+      break;
     case 'success':
-      icon = 'ok'
-      break
+      icon = 'ok';
+      break;
     case 'warning':
-      icon = 'warning-triangle-o'
+      icon = 'warning-triangle-o';
+      break;
     default:
-      icon = 'info'
+      icon = 'info';
       break
   }
   return icon

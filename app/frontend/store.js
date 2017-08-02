@@ -3,8 +3,9 @@ import thunk from 'redux-thunk'
 
 import imageClassificationReducer from "./reducers/imageClassificationReducer"
 import messageReducer from "./reducers/messageReducer"
+import configReducer from "./reducers/configReducer"
 
 export default createStore(
-  combineReducers({imageClassificationReducer, messageReducer}), applyMiddleware(thunk)
+  combineReducers({imageClassificationReducer, messageReducer, configReducer}), applyMiddleware(thunk)
 )
 
