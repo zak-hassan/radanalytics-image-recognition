@@ -7,6 +7,16 @@ import Classifier from '../components/Classifier.jsx'
 import { setUploadFile, setImageClassification } from '../actions/imageClassifierActions'
 
 class ImageClassifierView extends Component {
+
+  static get propTypes() {
+    return {
+      file: PropTypes.object,
+      classification: PropTypes.array,
+      setUploadFile: PropTypes.func,
+      setImageClassification: PropTypes.func
+    }
+  }
+
   render() {
     return(
       <div className="container-fluid container-cards-pf">

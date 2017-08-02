@@ -32,7 +32,7 @@ export function setImageClassification(file) {
   formData.append('file', file)
   const url = '/api/v1/imgrecognize'
 
-  return(dispatch, file) => {
+  return(dispatch) => {
     $.ajax({
       type: 'POST',
       url: url,
