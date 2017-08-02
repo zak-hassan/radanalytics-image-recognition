@@ -1,5 +1,5 @@
 import $ from 'jquery'
-import { setMessage } from './messageActions'
+import { setMessage, setMessageWithTimeout } from './messageActions'
 
 export function setUploadFile(file) {
   return {
@@ -44,7 +44,7 @@ export function setImageClassification(file) {
       },
       success: function(result) {
         dispatch(setClassification(result.pred))
-        dispatch(setMessage('Successfully classified image', 'success'))
+        dispatch(setMessageWithTimeout('Successfully classified image', 'success'))
       },
       error: function(error) {
         dispatch(setMessage(error, 'error'))
