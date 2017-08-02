@@ -9,6 +9,7 @@ export function getIcon(messageType) {
       break
     case 'warning':
       icon = 'warning-triangle-o'
+      break
     default:
       icon = 'info'
       break

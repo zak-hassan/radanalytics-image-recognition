@@ -4,6 +4,13 @@ import Dropzone from 'react-dropzone'
 
 class ImageUploader extends Component {
 
+  static get propTypes() {
+    return {
+      file: PropTypes.object,
+      setUploadFile: PropTypes.func
+    }
+  }
+
   onDrop(uploadFile) {
     //set new image
     this.props.setUploadFile(uploadFile[0])
