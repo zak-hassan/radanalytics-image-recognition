@@ -19,6 +19,8 @@ basepage = Blueprint('base_page', __name__, template_folder='templates')
 
 
 @basepage.route("/")
+@basepage.route("/config")
+@basepage.route("/stats")
 def home():
     return render_template('index.html')
 

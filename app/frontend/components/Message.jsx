@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from "react-redux"
 
-import { clearMessage } from '../actions/messageActions'
-
 class Message extends Component {
 
   static get propTypes() {
@@ -38,21 +36,4 @@ class Message extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    message: state.messageReducer.message,
-    messageType: state.messageReducer.messageType,
-    icon: state.messageReducer.icon,
-    visible: state.messageReducer.visible
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-      clearMessage: () => {
-          dispatch(clearMessage())
-      }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Message)
+export default Message
