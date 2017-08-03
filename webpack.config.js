@@ -47,6 +47,11 @@ module.exports = {
               from: { glob: './node_modules/patternfly/dist/css/*.*'},
               to: './css',
               flatten: true
+          },
+          {
+              from: { glob: './node_modules/react-bootstrap-table/css/*.*'},
+              to: './css',
+              flatten: true
           }
       ]),
     ]
