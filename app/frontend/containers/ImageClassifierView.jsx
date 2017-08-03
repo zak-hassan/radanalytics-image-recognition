@@ -21,7 +21,7 @@ class ImageClassifierView extends Component {
     return(
       <div className="container-fluid container-cards-pf">
         <div className="col col-cards-pf">
-          <div className="cards col-xs-10 col-md-8 ">
+          <div className="cards col-xs-10 col-md-8">
             <ImageUploader file={this.props.file}
               setUploadFile={this.props.setUploadFile}/>
             <Classifier file={this.props.file}
