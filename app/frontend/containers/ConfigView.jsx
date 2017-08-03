@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 
-import { setConfigValues, setInitConfig, saveConfig, resetConfig} from '../actions/configActions'
+import { setConfigValues, setInitConfig, saveConfig, resetConfig, setInputStatus} from '../actions/configActions'
 import ConfigRow from '../components/ConfigRow.jsx'
 
 class ConfigView extends Component {
@@ -19,6 +19,8 @@ class ConfigView extends Component {
   handleSubmit(event){
     event.preventDefault();
     this.props.setSaveConfig();
+    this.props.setInitConfig();
+    this.forceUpdate();
   }
 
   render() {
@@ -33,7 +35,8 @@ class ConfigView extends Component {
         <ConfigRow  key={i}
                     configKey={key}
                     configValue={this.props.configValues[key]}
-                    setConfigValues={this.props.setConfigValues}/>
+                    setConfigValues={this.props.setConfigValues}
+                    setInputStatus={this.props.setInputStatus}/>
       )
     });
 
@@ -44,7 +47,7 @@ class ConfigView extends Component {
             <div className="cards col-xs-10 col-md-8 ">
               <div className="card-pf">
                 <h2 className="card-pf-title">Configuration</h2>
-                <div className="card-pf-footer">
+                <div className="card-pf-footer fader">
                     <form className="form-horizontal" onSubmit={this.handleSubmit}>
                       {configRows}
                       <div className="form-group">
@@ -84,6 +87,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     setResetConfig: () => {
       dispatch(resetConfig())
+    },
+    setInputStatus: (key, status) => {
+      dispatch(setInputStatus(key, status))
     }
   }
 };
@@ -94,6 +100,7 @@ ConfigView.propTypes = {
   setInitConfig: PropTypes.func,
   setSaveConfig: PropTypes.func,
   setResetConfig: PropTypes.func,
+  setInputStatus: PropTypes.func
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConfigView)

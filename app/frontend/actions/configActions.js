@@ -16,7 +16,7 @@ function getConfigValues(){
     imagefolder: 'random/resources/image/folder'
   };
 
-  return configValues
+  return {'config': configValues}
 }
 
 export function setInitConfig(){
@@ -36,5 +36,12 @@ export function resetConfig(){
   return {
     type: "SET_INIT_CONFIG",
     payload: getConfigValues()
+  }
+}
+
+export function setInputStatus(key, status){
+  return {
+    type: "SET_INPUT_STATUS",
+    payload: [key, status]
   }
 }
