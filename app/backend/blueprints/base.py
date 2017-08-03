@@ -29,6 +29,15 @@ def allowed_file(filename):
            app.config['ALLOWED_EXTENSIONS']
 
 
+@basepage.route("/api/v1/settings", methods=['POST','GET'])
+def set_settings():
+
+# INCEPTION_MODEL
+# UPLOAD_FOLDER
+# ALLOWED_EXTENSIONS
+
+    return {}
+
 
 @basepage.route("/api/v1/images", methods=['POST','GET'])
 def get_images():
@@ -39,26 +48,20 @@ def get_images():
 @basepage.route("/api/v1/historyServer", methods=['GET'])
 def get_history():
     mock_data={
- 	"last_transaction": "july-27-4:00pm",
+	"last_transaction": "july-27-4:00pm",
 	"time_taken": "2.5s",
 	"num_pages": 2,
 	"num_results": 12,
-	"results": {
-		"tiger.jpeg": [
-			[84.1865, "tiger"],
-			[6.1492, "tiger cat"],
-			[0.1738, "lynx"],
-			[0.1387, "jaguar"],
-			[0.1313, "leopard"]
-		],
-		"weasle.jpeg": [
-			[58.4949, "weasel"],
-			[24.103, "polecat"],
-			[4.4645, "black-footed ferret"],
-			[2.3972, "mink"],
-			[0.1152, "otter"]
-		]
-    	}
+	"results": [{
+			"filename": "tiger.jpeg",
+			"classification": "tiger",
+			"percentage": 84.1865
+		},
+		{
+			"filename": "weasel.jpeg",
+			"classification": "weasel",
+			"percentage": 58.4949
+		}]
     }
     return Response(json.dumps(mock_data), status=200, mimetype="application/json")
 
