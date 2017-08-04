@@ -1,20 +1,20 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import PropTypes from "prop-types"
 import {
   BrowserRouter as Router,
   Route,
   Switch
-} from 'react-router-dom';
+} from "react-router-dom";
 
-import Navbar from '../components/NavBar.jsx'
-import Message from '../components/Message.jsx'
-import ImageClassifierView from './ImageClassifierView.jsx'
-import ConfigView from './ConfigView.jsx'
-import StatsView from './StatsView.jsx'
+import Navbar from "../components/NavBar.jsx"
+import Message from "../components/Message.jsx"
+import ImageClassifierView from "./ImageClassifierView.jsx"
+import ConfigView from "./ConfigView.jsx"
+import StatsView from "./StatsView.jsx"
 
 
-import { clearMessage } from '../actions/messageActions'
+import { clearMessage } from "../actions/messageActions"
 
 class App extends Component {
 

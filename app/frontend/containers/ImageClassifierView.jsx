@@ -1,10 +1,11 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import PropTypes from "prop-types"
 
-import ImageUploader from '../components/ImageUploader.jsx'
-import Classifier from '../components/Classifier.jsx'
-import { setUploadFile, setImageClassification } from '../actions/imageClassifierActions'
+import ImageUploader from "../components/ImageUploader.jsx"
+import Classifier from "../components/Classifier.jsx"
+import { setUploadFile, setImageClassification } from "../actions/imageClassifierActions"
+import { setMessageWithTimeout } from "../actions/messageActions"
 
 class ImageClassifierView extends Component {
 
@@ -13,7 +14,8 @@ class ImageClassifierView extends Component {
       file: PropTypes.object,
       classification: PropTypes.array,
       setUploadFile: PropTypes.func,
-      setImageClassification: PropTypes.func
+      setImageClassification: PropTypes.func,
+      setMessageTimeout: PropTypes.func
     }
   }
 
@@ -21,9 +23,10 @@ class ImageClassifierView extends Component {
     return(
       <div className="container-fluid container-cards-pf">
         <div className="col col-cards-pf">
-          <div className="cards col-xs-10 col-md-8 ">
+          <div className="cards col-xs-10 col-md-8">
             <ImageUploader file={this.props.file}
-              setUploadFile={this.props.setUploadFile}/>
+              setUploadFile={this.props.setUploadFile}
+              setMessageTimeout={this.props.setMessageTimeout}/>
             <Classifier file={this.props.file}
               classification={this.props.classification}
               setImageClassification={this.props.setImageClassification}/>
@@ -48,6 +51,9 @@ const mapDispatchToProps = (dispatch) => {
       },
       setUploadFile: (file) => {
           dispatch(setUploadFile(file))
+      },
+      setMessageTimeout: (msg, errorType) => {
+          dispatch(setMessageWithTimeout(msg, errorType))
       }
   }
 }

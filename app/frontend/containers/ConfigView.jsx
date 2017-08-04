@@ -6,13 +6,13 @@ import {
   setConfigValues,
   setInitConfig,
   saveConfig,
-  resetConfig,
   setInputStatus,
   setExecutingSaveStatus,
   setLoadingFormStatus,
 } from '../actions/configActions'
 
 import ConfigRow from '../components/ConfigRow.jsx'
+
 
 class ConfigView extends Component {
 
@@ -29,14 +29,10 @@ class ConfigView extends Component {
       url: url,
       dataType: 'json',
       success: function(result){
-        console.log('Got get request');
         this.props.setInitConfig(result);
         this.props.setLoadingFormStatus(false);
       }.bind(this),
-      error: function(result){
-        console.log("Could not load form data from server.");
-        console.log(result);
-      }
+      error: function(){}
     });
   }
 
@@ -54,21 +50,15 @@ class ConfigView extends Component {
       contentType: 'application/json',
       success: function (result) {
         this.props.setExecutingSaveStatus(false);
-        console.log(result);
         this.props.setSaveConfig(result);
         this.forceUpdate();
       }.bind(this),
-      error: function (error) {
-        /* Add new action to change state to error mode */
-        console.log("Error when making post request: ");
-        console.log(error);
-      }.bind(this)
+      error: function (){}
     });
   }
 
   render() {
     if(!this.props.configValues){
-      console.log('Configuration could not be loaded.');
       return null
     }
 
@@ -145,9 +135,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     setSaveConfig: (result) => {
       dispatch(saveConfig(result))
-    },
-    setResetConfig: () => {
-      dispatch(resetConfig())
     },
     setInputStatus: (key, status) => {
       dispatch(setInputStatus(key, status))

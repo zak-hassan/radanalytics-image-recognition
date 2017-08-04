@@ -59,8 +59,6 @@ const configReducer = (
             active: false
           }
       });
-
-      console.log(state);
       break;
     }
 
@@ -75,7 +73,6 @@ const configReducer = (
     }
 
     case "SET_EXECUTING_SAVE_STATUS":
-      console.log('executing save');
       state = {...state};
       state.executingSave = action.payload;
       break;

@@ -22,6 +22,7 @@
 .dropzone-image {
         width: 85%;
         height: 85%;
+        user-select: none;
 }
 
 /* Edit Icon */
