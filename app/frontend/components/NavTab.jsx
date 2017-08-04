@@ -1,6 +1,6 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import PropTypes from 'prop-types'
+import React from "react"
+import { Link } from "react-router-dom"
+import PropTypes from "prop-types"
 
 class NavTab extends React.Component {
 
@@ -13,7 +13,7 @@ class NavTab extends React.Component {
 
   render() {
       var isActive = this.context.router.route.location.pathname === this.props.to
-      var className = isActive ? 'active' : ''
+      var className = isActive ? "active" : ""
 
       return(
         <li className={className}>

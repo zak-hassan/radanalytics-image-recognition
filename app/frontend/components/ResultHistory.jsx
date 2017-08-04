@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import PropTypes from 'prop-types'
+import React, { Component } from "react"
+import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
+import PropTypes from "prop-types"
 
 class ResultHistory extends Component {
 
@@ -26,10 +26,10 @@ class ResultHistory extends Component {
             </div>
             <div className="card-pf-body">
               <BootstrapTable data={this.props.results} hover pagination>
-                <TableHeaderColumn dataAlign="center" dataField='filename' dataFormat={this.imageFormatter}>Thumbnail</TableHeaderColumn>
-                <TableHeaderColumn dataAlign="center" dataSort={true} dataField='filename' isKey={true}>Filename</TableHeaderColumn>
-                <TableHeaderColumn dataAlign="center" dataSort={true} dataField='classification'>Classification</TableHeaderColumn>
-                <TableHeaderColumn dataAlign="center" dataSort={true} dataField='percentage'>%</TableHeaderColumn>
+                <TableHeaderColumn dataAlign="center" dataField="filename" dataFormat={this.imageFormatter}>Thumbnail</TableHeaderColumn>
+                <TableHeaderColumn dataAlign="center" dataSort={true} dataField="filename" isKey={true}>Filename</TableHeaderColumn>
+                <TableHeaderColumn dataAlign="center" dataSort={true} dataField="classification">Classification</TableHeaderColumn>
+                <TableHeaderColumn dataAlign="center" dataSort={true} dataField="percentage">%</TableHeaderColumn>
               </BootstrapTable>
             </div>
          </div>}

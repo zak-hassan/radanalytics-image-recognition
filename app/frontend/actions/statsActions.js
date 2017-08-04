@@ -1,5 +1,5 @@
-import $ from 'jquery'
-import { setMessage } from './messageActions'
+import $ from "jquery"
+import { setMessage } from "./messageActions"
 
 export function setLastResultDate(date) {
   return {
@@ -43,7 +43,7 @@ export function getStats() {
         dispatch(setResultHistory(result.results))
       },
       error: function(error) {
-        dispatch(setMessage(error, 'error'))
+        dispatch(setMessage(error, "danger"))
       }
     })
   }

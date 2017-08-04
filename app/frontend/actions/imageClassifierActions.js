@@ -1,5 +1,5 @@
-import $ from 'jquery'
-import { setMessage, setMessageWithTimeout } from './messageActions'
+import $ from "jquery"
+import { setMessage, setMessageWithTimeout } from "./messageActions"
 
 export function setUploadFile(file) {
   return {
@@ -29,12 +29,12 @@ export function clearClassification() {
 
 export function setImageClassification(file) {
   var formData = new FormData()
-  formData.append('file', file)
-  const url = '/api/v1/imgrecognize'
+  formData.append("file", file)
+  const url = "/api/v1/imgrecognize"
 
   return(dispatch) => {
     $.ajax({
-      type: 'POST',
+      type: "POST",
       url: url,
       data: formData,
       contentType: false,
@@ -44,10 +44,10 @@ export function setImageClassification(file) {
       },
       success: function(result) {
         dispatch(setClassification(result.pred))
-        dispatch(setMessageWithTimeout('Successfully classified image', 'success'))
+        dispatch(setMessageWithTimeout("Successfully classified image", "success"))
       },
       error: function(error) {
-        dispatch(setMessage(error, 'error'))
+        dispatch(setMessage(error, "danger"))
       }
     })
   }
