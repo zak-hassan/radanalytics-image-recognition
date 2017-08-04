@@ -8,7 +8,7 @@ from os import environ
 UPLOAD_FOLDER = '.rad-img-recog'
 DEFAULT_IMAGE_NAME = 'placeholder.jpg'
 ALLOWED_EXTENSIONS = ['jpeg', 'jpg']
-
+TRAINED_MODEL_URL="http://download.tensorflow.org/models/image/imagenet/inception-2015-12-05.tgz"
 
 def create_app(config=None):
     working_dir = dirname(abspath(__file__))
@@ -29,7 +29,7 @@ def create_app(config=None):
     flask_app.config['IMAGE_FILE'] = DEFAULT_IMAGE_NAME
     flask_app.config['ALLOWED_EXTENSIONS'] = ALLOWED_EXTENSIONS
     flask_app.config['INCEPTION_MODEL'] = inception_dir
-
+    flask_app.config['TRAINED_MODEL_URL']=TRAINED_MODEL_URL
     return flask_app
 
 
