@@ -1,5 +1,7 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import React, { Component } from "react"
+import { Link } from "react-router-dom"
+
+import NavTab from "./NavTab.jsx"
 
 class Navbar extends Component {
 
@@ -12,15 +14,9 @@ class Navbar extends Component {
           </Link>
         </div>
         <ul className="nav navbar-nav navbar-primary">
-          <li>
-            <Link to="/">Image Classification</Link>
-          </li>
-          <li>
-            <Link to="/stats">Statistics</Link>
-          </li>
-          <li>
-            <Link to="/config">Configuration</Link>
-          </li>
+          <NavTab to="/">Image Classification</NavTab>
+          <NavTab to="/stats">Statistics</NavTab>
+          <NavTab to="/config">Configuration</NavTab>
         </ul>
       </nav>
     )

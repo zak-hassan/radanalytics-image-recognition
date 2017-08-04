@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from "react"
+import PropTypes from "prop-types"
 
-import ClassificationResult from '../components/ClassificationResult.jsx'
+import ClassificationResult from "../components/ClassificationResult.jsx"
 
 class Classifier extends Component {
 

@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from "react"
+import PropTypes from "prop-types"
 
 class ClassificationResult extends Component {
 
@@ -12,7 +12,7 @@ class ClassificationResult extends Component {
 
   render() {
 
-    var barWidth = this.props.value + '%'
+    var barWidth = this.props.value + "%"
 
     return (
       <div className="ClassificationResult">

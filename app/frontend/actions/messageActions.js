@@ -1,4 +1,4 @@
-import { getIcon } from './utils'
+import { getIcon } from "./utils"
 
 export function setMessage(message, type){
   const icon = getIcon(type)
