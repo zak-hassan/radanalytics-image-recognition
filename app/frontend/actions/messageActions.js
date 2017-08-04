@@ -25,7 +25,7 @@ export function setMessageWithTimeout(message, type) {
   return(dispatch) => {
     dispatch(setMessage(message, type))
     setTimeout(() => {
-      dispatch(setVisible(false))}, 5000)
+      dispatch(setVisible(false))}, 3000)
     }
 }
 

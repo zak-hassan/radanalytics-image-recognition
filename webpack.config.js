@@ -8,8 +8,16 @@ module.exports = {
         rules: [
             {
                 test: /\.(jsx|js)$/,
-                exclude: /(node_modules|bower_components)/,
+                exclude: /node_modules/,
                 loader: 'babel-loader',
+                query: {
+                    presets: ["react", "es2015", "stage-2"]
+                }
+            },
+            {
+                test: /\.(jsx|js)$/,
+                exclude: /node_modules/,
+                loader: 'eslint-loader',
                 query: {
                     presets: ["react", "es2015", "stage-2"]
                 }

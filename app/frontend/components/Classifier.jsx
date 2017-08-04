@@ -2,9 +2,17 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import ClassificationResult from '../components/ClassificationResult.jsx'
-import { setImageClassification } from '../actions/imageClassifierActions'
 
 class Classifier extends Component {
+
+  static get propTypes() {
+    return {
+      classification: PropTypes.array,
+      file: PropTypes.object,
+      setImageClassification: PropTypes.func
+    }
+  }
+
 
   classify(file) {
     //set classification

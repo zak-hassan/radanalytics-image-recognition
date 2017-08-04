@@ -18,6 +18,16 @@ import { clearMessage } from '../actions/messageActions'
 
 class App extends Component {
 
+  static get propTypes() {
+    return {
+      message: PropTypes.string,
+      messageType: PropTypes.string,
+      icon: PropTypes.string,
+      visible: PropTypes.bool,
+      clearMessage: PropTypes.func
+    }
+  }
+
   render() {
     return (
         <Router>
