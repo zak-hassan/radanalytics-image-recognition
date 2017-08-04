@@ -33,12 +33,18 @@ def allowed_file(filename):
 
 @basepage.route("/api/v1/settings", methods=['POST','GET'])
 def set_settings():
+    mock_data={
+        "config":{
+        "training_model_uri" : app.config['TRAINED_MODEL_URL'],
+        "upload_folder": app.config['UPLOAD_FOLDER'],
 
-# INCEPTION_MODEL
-# UPLOAD_FOLDER
-# ALLOWED_EXTENSIONS
+        }
+    }
+    # INCEPTION_MODEL
+    # UPLOAD_FOLDER
+    # ALLOWED_EXTENSIONS
 
-    return {}
+    return  Response(json.dumps(mock_data), status=200, mimetype="application/json")
 
 
 @basepage.route("/api/v1/images", methods=['POST','GET'])
