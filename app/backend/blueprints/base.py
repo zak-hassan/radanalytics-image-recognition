@@ -31,6 +31,13 @@ def allowed_file(filename):
            app.config['ALLOWED_EXTENSIONS']
 
 
+@basepage.route('/api/v1/settings', methods=['POST', 'GET'])
+def configSettings():
+    print("In Config")
+    data = request.json
+    print("Requesting done")
+    print(data)
+    return Response(json.dumps(data), status=200, mimetype="application/json")
 
 @basepage.route("/api/v1/images", methods=['POST','GET'])
 def get_images():

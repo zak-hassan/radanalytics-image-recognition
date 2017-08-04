@@ -7,35 +7,17 @@ export function setConfigValues (e) {
   }
 }
 
-function getConfigValues(){
-  /* Mock config values, plan to get using ajax calls */
-  let configValues = {
-    uploadFolder: '/blah/blah',
-    modelLocation: 'also/blah/blah',
-    random: 'also/random/stuff',
-    imagefolder: 'random/resources/image/folder'
-  };
-
-  return {'config': configValues}
-}
-
-export function setInitConfig(){
+export function setInitConfig(configuration){
   return {
     type: "SET_INIT_CONFIG",
-    payload: getConfigValues()
+    payload: configuration
   }
 }
 
-export function saveConfig(){
+export function saveConfig(result){
   return {
     type: "SET_SAVE_CONFIG",
-  }
-}
-
-export function resetConfig(){
-  return {
-    type: "SET_INIT_CONFIG",
-    payload: getConfigValues()
+    payload: result
   }
 }
 
@@ -43,5 +25,21 @@ export function setInputStatus(key, status){
   return {
     type: "SET_INPUT_STATUS",
     payload: [key, status]
+  }
+}
+
+/* Track when post request is being handled */
+export function setExecutingSaveStatus(status){
+  return {
+    type: "SET_EXECUTING_SAVE_STATUS",
+    payload: status
+  }
+}
+
+/* Track when get request is being handled for form load */
+export function setLoadingFormStatus(status){
+  return {
+    type: "SET_LOADING_FORM_STATUS",
+    payload: status
   }
 }

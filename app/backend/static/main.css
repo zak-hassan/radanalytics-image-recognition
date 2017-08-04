@@ -50,3 +50,15 @@
         opacity:1;
     }
 }
+
+
+/* Flex code */
+.aligner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.config-save-spinner{
+    padding-left: 5px;
+}
