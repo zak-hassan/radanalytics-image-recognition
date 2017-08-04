@@ -4,22 +4,22 @@ const imageClassificationReducer = (state = {file: null, classification: null}, 
       state = {
         ...state,
         file: action.payload
-      }
-      break
+      };
+      break;
     case "SET_CLASSIFICATION":
       state = {
         ...state,
         classification: action.payload
-      }
-      break
+      };
+      break;
     case "CLEAR_CLASSIFICATION":
       state = {
         ...state,
         classification: null
-      }
+      };
       break
   }
   return state
-}
+};
 
 export default imageClassificationReducer

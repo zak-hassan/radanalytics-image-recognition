@@ -30,7 +30,6 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in \
            app.config['ALLOWED_EXTENSIONS']
 
-
 @basepage.route("/api/v1/settings", methods=['POST','GET'])
 def set_settings():
     mock_data={
