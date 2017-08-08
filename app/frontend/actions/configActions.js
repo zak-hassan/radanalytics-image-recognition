@@ -43,3 +43,9 @@ export function setLoadingFormStatus(status){
     payload: status
   }
 }
+
+export function deactivateConfigFields(){
+  return {
+    type:"DEACTIVATE_CONFIG_FIELDS",
+  }
+}

@@ -57,7 +57,8 @@ const configReducer = (
             ...state.configValues[config.field],
             placeholder: config.new_value,
             active: false
-          }
+          };
+        state.futureValues = {}
       });
       break;
     }
@@ -81,6 +82,7 @@ const configReducer = (
       state = {...state};
       state.loadingForm = action.payload;
       break;
+
   }
   return state
 };

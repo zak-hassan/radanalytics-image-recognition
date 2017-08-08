@@ -17,6 +17,8 @@ export default class ConfigRow extends Component{
   render(){
     let fieldName = this.props.configKey;
     let inputField = null;
+
+    /* Show edit field when edit button is clicked. */
     if (this.props.configValue.active){
       inputField = <input  className="form-control fader"
                            name={fieldName}
@@ -31,15 +33,16 @@ export default class ConfigRow extends Component{
     }
 
     return(
-      <div className="form-group">
-        <label className="col-sm-2 control-label" >
+      <div className="form-group wordwrapper">
+        <label className="col-sm-4 control-label" >
           {fieldName}
         </label>
 
-        <div className="col-sm-8 ">
+        <div className="col-sm-7 wordwrapper">
           {inputField}
         </div>
       </div>
+
     )
   }
 }

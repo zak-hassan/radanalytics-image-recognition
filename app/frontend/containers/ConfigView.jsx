@@ -58,6 +58,7 @@ class ConfigView extends Component {
   }
 
   render() {
+    /* Config table is not rendered if we have no values */
     if(!this.props.configValues){
       return null
     }
@@ -73,11 +74,13 @@ class ConfigView extends Component {
       )
     });
 
+    /*  Spinner for the pending POST request. */
     let buttonSpinner = null;
     if(this.props.executingSave) {
-      buttonSpinner = <div className="spinner spinner-xs spinner-inline config-save-spinner"/>
+      buttonSpinner = <div className="spinner spinner-inline config-save-spinner"/>
     }
 
+    /* While the GET request to server is pending, show spinner. */
     let bodyHTML = null;
     if(this.props.loadingForm){
       bodyHTML =
@@ -87,31 +90,47 @@ class ConfigView extends Component {
     } else{
       bodyHTML =
         <div className="card-pf-footer fader">
-          <form className="form-horizontal" onSubmit={this.handleSubmit}>
+          <form className="form-horizontal">
             {configRows}
             <div className="form-group">
               <div className="col-sm-offset-2 col-sm-10">
-                <button  type="submit" className="btn btn-primary">Save</button>
-                {buttonSpinner}
               </div>
             </div>
           </form>
         </div>
     }
 
+    let saveButton = <button  onClick={this.handleSubmit} className="btn btn-primary">Save</button>;
+
+    let title = <h2 className="card-pf-title">Configuration</h2>;
+
+    let footer =
+      <div className="container card-pf-footer card-pf fader autowidth">
+        <div className="col-xs-6 col-sm-6">
+          <a className="card-pf-link-with-icon" data-toggle="modal" data-target=".bs-example-modal-lg">
+            <span className="pficon pficon-help"/> Help
+          </a>
+        </div>
+        <div className="col-xs-6 col-sm-6">
+          <div className="pull-right aligner">
+            {buttonSpinner}
+            {saveButton}
+          </div>
+        </div>
+      </div>;
+
     return(
-      <div className="container-fluid container-cards-pf">
-        <div className="col col-cards-pf">
-          <div className="col-xs-9 col-sm-12 col-md-11">
-            <div className="cards col-xs-10 col-md-8 ">
-              <div className="card-pf">
-                <h2 className="card-pf-title">Configuration</h2>
-                  {bodyHTML}
-              </div>
-            </div>
+      <div className="col col-cards-pf container-cards-pf">
+        <div className="cards col-xs-10 col-md-8 ">
+          <div className="card-pf">
+            {title}
+            {bodyHTML}
+            {footer}
           </div>
         </div>
       </div>
+
+
     )
   }
 }
@@ -144,7 +163,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     setLoadingFormStatus: (status) => {
       dispatch(setLoadingFormStatus(status))
-    }
+    },
   }
 };
 
