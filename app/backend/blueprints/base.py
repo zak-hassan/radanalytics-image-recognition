@@ -30,20 +30,58 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in \
            app.config['ALLOWED_EXTENSIONS']
 
+
 @basepage.route("/api/v1/settings", methods=['POST','GET'])
 def set_settings():
-    mock_data={
-        "config":{
-        "training_model_uri" : app.config['TRAINED_MODEL_URL'],
-        "upload_folder": app.config['UPLOAD_FOLDER'],
-
+    if request.method == 'GET':
+        mock_data = {
+            "config": {
+                "training_model_uri": app.config['TRAINED_MODEL_URL'],
+                "upload_folder": app.config['UPLOAD_FOLDER'],
+                "allowed_Extensions": 'jpeg,jpg',
+                "model_folder_name": '.model',
+                "model_folder_location": 'path/to/model/',
+                "image_folder": 'path/to/image/folder'
+            }
         }
-    }
-    # INCEPTION_MODEL
-    # UPLOAD_FOLDER
-    # ALLOWED_EXTENSIONS
 
-    return  Response(json.dumps(mock_data), status=200, mimetype="application/json")
+        return Response(json.dumps(mock_data), status=200, mimetype="application/json")
+    else:  # POST
+        mock_data = {
+            "config_change": [
+                {
+                    "field": "training_model_uri",
+                    "new_value": "http://new/uri/to/trained_model/uri",
+                    "status": "changed"
+                },
+                {
+                    "field": "upload_folder",
+                    "new_value": "new/path/to/upload/folder",
+                    "status": "changed"
+                },
+                {
+                    "field": "allowed_Extensions",
+                    "new_value": "jpeg,jpg,png",
+                    "status": "changed"
+                },
+                {
+                    "field": "model_folder_name",
+                    "new_value": ".new_model_folder_name",
+                    "status": "changed"
+                },
+                {
+                    "field": "model_folder_location",
+                    "new_value": "new/path/to/model/folder",
+                    "status": "changed"
+                },
+                {
+                    "field": "image_folder",
+                    "new_value": "new/path/to/image/folder",
+                    "status": "changed"
+                },
+            ]}
+
+        return Response(json.dumps(mock_data), status=200, mimetype="application/json")
 
 
 @basepage.route("/api/v1/images", methods=['POST','GET'])
