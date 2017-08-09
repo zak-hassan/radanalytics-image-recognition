@@ -1,6 +1,6 @@
-import React, { Component } from "react"
+import React, { Component } from "react";
 import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
 
 class ResultHistory extends Component {
 
@@ -11,7 +11,7 @@ class ResultHistory extends Component {
   }
 
   imageFormatter(filename) {
-    return "<img className='img-thumb' src='/api/v1/images/"+filename+"'/>"
+    return "<img className='img-thumb' src='/api/v1/images/"+filename+"'/>";
   }
 
   render() {
@@ -34,8 +34,8 @@ class ResultHistory extends Component {
             </div>
          </div>}
        </div>
-    )
+    );
   }
 }
 
-export default ResultHistory
+export default ResultHistory;

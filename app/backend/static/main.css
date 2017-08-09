@@ -1,9 +1,3 @@
-.cards {
-        margin: 0 auto;
-        float: none;
-        margin-bottom: 10px;
-}
-
 .dropzone {
         width: 250px;
         height: 250px;
@@ -14,9 +8,6 @@
         border-style: dashed;
         border-radius: 5px;
         margin: auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
 }
 
 .dropzone-image {
@@ -80,4 +71,3 @@
 .m-r-8{
     margin-right: 8px;
 }
-

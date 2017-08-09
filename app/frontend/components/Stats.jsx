@@ -1,5 +1,5 @@
-import React, { Component } from "react"
-import PropTypes from "prop-types"
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 class Stats extends Component {
 
@@ -14,7 +14,7 @@ class Stats extends Component {
   render() {
     return (
       <div className="container container-cards-pf">
-        <div className="row row-cards-pf">
+        <div className="row row-cards-pf aligner">
           {this.props.numRes &&
           <div className="col-xs-8 col-md-4">
             <div className="card-pf card-pf-accented card-pf-aggregate-status">
@@ -50,8 +50,8 @@ class Stats extends Component {
           </div>}
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default Stats
+export default Stats;

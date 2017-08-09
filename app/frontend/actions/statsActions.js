@@ -1,5 +1,5 @@
-import $ from "jquery"
-import { setMessage } from "./messageActions"
+import $ from "jquery";
+import { setMessage } from "./messageActions";
 
 export function setLastResultDate(date) {
   return {
@@ -30,20 +30,20 @@ export function setResultHistory(results) {
 }
 
 export function getStats() {
-  const url = "/api/v1/historyServer"
+  const url = "/api/v1/historyServer";
 
   return(dispatch) => {
     $.ajax({
       type: "GET",
       url: url,
       success: function(result) {
-        dispatch(setLastResultTimeTaken(result.time_taken))
-        dispatch(setLastResultDate(result.last_transaction))
-        dispatch(setNumResults(result.num_results))
-        dispatch(setResultHistory(result.results))
+        dispatch(setLastResultTimeTaken(result.time_taken));
+        dispatch(setLastResultDate(result.last_transaction));
+        dispatch(setNumResults(result.num_results));
+        dispatch(setResultHistory(result.results));
       },
       error: function(error) {
-        dispatch(setMessage(error, "danger"))
+        dispatch(setMessage(error, "danger"));
       }
     })
   }

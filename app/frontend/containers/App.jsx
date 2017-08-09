@@ -1,20 +1,19 @@
-import React, { Component } from "react"
-import { connect } from "react-redux"
-import PropTypes from "prop-types"
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import {
   BrowserRouter as Router,
   Route,
   Switch
 } from "react-router-dom";
 
-import Navbar from "../components/NavBar.jsx"
-import Message from "../components/Message.jsx"
-import ImageClassifierView from "./ImageClassifierView.jsx"
-import ConfigView from "./ConfigView.jsx"
-import StatsView from "./StatsView.jsx"
+import Navbar from "../components/NavBar.jsx";
+import Message from "../components/Message.jsx";
+import ImageClassifierView from "./ImageClassifierView.jsx";
+import ConfigView from "./ConfigView.jsx";
+import StatsView from "./StatsView.jsx";
 
-
-import { clearMessage } from "../actions/messageActions"
+import { clearMessage } from "../actions/messageActions";
 
 class App extends Component {
 
@@ -47,7 +46,7 @@ class App extends Component {
             </Switch>
           </div>
         </Router>
-    )
+    );
   }
 }
 
@@ -58,7 +57,7 @@ const mapStateToProps = (state) => {
     icon: state.messageReducer.icon,
     visible: state.messageReducer.visible
   }
-}
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -66,6 +65,6 @@ const mapDispatchToProps = (dispatch) => {
           dispatch(clearMessage())
       }
   }
-}
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App);
