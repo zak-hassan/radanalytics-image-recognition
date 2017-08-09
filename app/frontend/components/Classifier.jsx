@@ -32,7 +32,7 @@ class Classifier extends Component {
     if(this.props.classification) {
       classificationResults = this.props.classification.map(result => {
         return (
-          <ClassificationResult key={result[1]} _class={result[1]} value={result[0]}/>
+          <ClassificationResult className="fader" key={result[1]} _class={result[1]} value={result[0]}/>
         );
       })
     //otherwise, load a spinner
@@ -44,7 +44,7 @@ class Classifier extends Component {
     return (
       <div className="Classifier">
         {this.props.file &&
-        <div className="card-pf card-pf-accented fader">
+        <div className="card-pf card-pf-accented">
           <div className="card-pf-heading">
             <h2 className="card-pf-title">
               Classification Results
