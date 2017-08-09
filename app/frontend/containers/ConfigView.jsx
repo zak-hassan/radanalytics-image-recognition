@@ -11,7 +11,7 @@ import {
   setLoadingFormStatus,
 } from '../actions/configActions'
 import ButtonComponent from '../components/ButtonModal.jsx';
-import {toggleModal} from '../actions/modalActions';
+import {toggleConfigModal} from '../actions/modalActions';
 import ConfigRow from '../components/ConfigRow.jsx'
 import ModalComponentDialog from '../components/ModalWindow.jsx'
 
@@ -93,23 +93,25 @@ class ConfigView extends Component {
         <div className="card-pf-footer fader">
           <form className="form-horizontal">
             {configRows}
-            <div className="form-group">
-              <div className="col-sm-offset-2 col-sm-10">
-              </div>
-            </div>
           </form>
         </div>
     }
 
     let saveButton = <button  onClick={this.handleSubmit} className="btn btn-primary">Save</button>;
-
     let title = <h2 className="card-pf-title">Configuration</h2>;
 
+
+    let modalTitle = "Configuration Help";
+    let modalContent =<p>One fine body&hellip;</p>
+    
     let footer =
       <div className="container card-pf-footer card-pf fader autowidth">
         <div className="col-xs-6 col-sm-6">
             <ButtonComponent toggleModal={this.props.toggleModal}/>
-            <ModalComponentDialog isOpen={this.props.modalStatus} toggleModal={this.props.toggleModal}/>
+            <ModalComponentDialog isOpen={this.props.modalState}
+                                  toggleModal={this.props.toggleModal}
+                                  modalTitle={modalTitle}
+                                  modalContent={modalContent}/>
         </div>
 
         <div className="col-xs-6 col-sm-6">
@@ -141,7 +143,7 @@ const mapStateToProps = (state) => {
     executingSave: state.configReducer.executingSave,
     futureValues: state.configReducer.futureValues,
     loadingForm: state.configReducer.loadingForm,
-    modalStatus: state.modalReducer.modalState
+    modalState: state.modalReducer.config_modal
   }
 };
 
@@ -165,9 +167,8 @@ const mapDispatchToProps = (dispatch) => {
     setLoadingFormStatus: (status) => {
       dispatch(setLoadingFormStatus(status))
     },
-
     toggleModal: () => {
-      dispatch(toggleModal())
+      dispatch(toggleConfigModal())
     },
   }
 };
@@ -185,7 +186,7 @@ ConfigView.propTypes = {
   loadingForm: PropTypes.bool,
   futureValues: PropTypes.object,
   toggleModal: PropTypes.func,
-  modalStatus: PropTypes.bool,
+  modalState: PropTypes.bool,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConfigView)

@@ -10,12 +10,21 @@ class ModalComponentDialog extends Component{
   }
 
   closeModal(){
-    this.props.toggleModal();
+    this.props.toggleModal(this.props.mid);
   }
 
   render(){
-    console.log(this.props.isOpen);
     /*const status = modalStatus ? "Verdadero": "Falso";*/
+    let footer = null;
+    if(this.props.modalFooter){
+      footer = this.props.modalFooter;
+    }else {
+      footer =
+        <div className="modal-footer">
+          <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.closeModal}>Close</button>
+        </div>
+    }
+
     return (
       <div>
         <Modal
@@ -24,23 +33,16 @@ class ModalComponentDialog extends Component{
           onRequestClose={this.closeModal}
           className="modal-dialog">
           <div className="modal-content">
-
             <div className="modal-header">
               <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
-              <h4 className="modal-title">Modal title</h4>
+              <h4 className="modal-title">{this.props.modalTitle}</h4>
             </div>
-
             <div className="modal-body">
-              <p>One fine body&hellip;</p>
+              {this.props.modalContent}
             </div>
-
-            <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.closeModal}>Close</button>
-              <button type="button" className="btn btn-primary" onClick={this.closeModal}>Save changes</button>
-            </div>
-
+            {footer}
           </div>
         </Modal>
       </div>
@@ -53,6 +55,10 @@ export default ModalComponentDialog;
 
 ModalComponentDialog.propTypes = {
   toggleModal: PropTypes.func,
-  isOpen: PropTypes.bool,
   contentLabel: PropTypes.string,
+  mid: PropTypes.string,
+  isOpen: PropTypes.bool,
+  modalTitle: PropTypes.string,
+  modalContent: PropTypes.element,
+  modalFooter: PropTypes.element,
 };

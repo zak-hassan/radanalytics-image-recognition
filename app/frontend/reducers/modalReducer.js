@@ -1,13 +1,14 @@
 const initialState = {
-  modalState: false
+  config_modal: false,
+  class_modal: false,
 };
 
 const modalReducer = function(state = initialState, action){
   switch(action.type){
     case "TOGGLE_MODAL": {
-      console.log("In Modal Reducer.");
+      let mid = action.payload;
       state = {...state};
-      state.modalState = !state.modalState;
+      state[mid] = (state[mid] === false);
       return state;
     }
     default:
