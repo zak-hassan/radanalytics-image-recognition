@@ -53,6 +53,8 @@ class ModalComponentDialog extends Component{
 
 export default ModalComponentDialog;
 
+// Ensure that the toggleModal is the same that is passed to
+// ButtonModal
 ModalComponentDialog.propTypes = {
   toggleModal: PropTypes.func.isRequired,
   isOpen: PropTypes.bool.isRequired,

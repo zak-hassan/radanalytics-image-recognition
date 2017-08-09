@@ -83,6 +83,11 @@ class ConfigView extends Component {
   createFooter(){
     /*  Spinner for the pending POST request. */
     let buttonSpinner = null;
+
+    let helpButton = <a className="card-pf-link-with-icon pointer" >
+        <span className="pficon pficon-help"/>
+        Help
+      </a>
     if(this.props.executingSave) {
       buttonSpinner = <div className="spinner spinner-inline config-save-spinner"/>
     }
@@ -90,7 +95,8 @@ class ConfigView extends Component {
     let saveButton = <button  onClick={this.handleSubmit} className="btn btn-primary">Save</button>;
     return <div className="container card-pf-footer card-pf fader autowidth">
         <div className="col-xs-6 col-sm-6">
-            <ButtonComponent toggleModal={this.props.toggleModal}/>
+            <ButtonComponent toggleModal={this.props.toggleModal}
+            content={helpButton}/>
             {this.createModalComponent()}
         </div>
 
