@@ -10,9 +10,10 @@ import {
   setExecutingSaveStatus,
   setLoadingFormStatus,
 } from '../actions/configActions'
-
+import ButtonComponent from '../components/ButtonModal.jsx';
+import {toggleModal} from '../actions/modalActions';
 import ConfigRow from '../components/ConfigRow.jsx'
-import ModalComponentDialog from './modalContainer.jsx'
+import ModalComponentDialog from '../components/ModalWindow.jsx'
 
 class ConfigView extends Component {
 
@@ -107,17 +108,17 @@ class ConfigView extends Component {
     let footer =
       <div className="container card-pf-footer card-pf fader autowidth">
         <div className="col-xs-6 col-sm-6">
-          <a className="card-pf-link-with-icon" data-toggle="modal" data-target=".bs-example-modal-lg">
-            <span className="pficon pficon-help"/> Help
-            <ModalComponentDialog/>
-          </a>
+            <ButtonComponent toggleModal={this.props.toggleModal}/>
+            <ModalComponentDialog isOpen={this.props.modalStatus} toggleModal={this.props.toggleModal}/>
         </div>
+
         <div className="col-xs-6 col-sm-6">
           <div className="pull-right aligner">
             {buttonSpinner}
             {saveButton}
           </div>
         </div>
+
       </div>;
 
     return(
@@ -130,8 +131,6 @@ class ConfigView extends Component {
           </div>
         </div>
       </div>
-
-
     )
   }
 }
@@ -142,6 +141,7 @@ const mapStateToProps = (state) => {
     executingSave: state.configReducer.executingSave,
     futureValues: state.configReducer.futureValues,
     loadingForm: state.configReducer.loadingForm,
+    modalStatus: state.modalReducer.modalState
   }
 };
 
@@ -165,6 +165,10 @@ const mapDispatchToProps = (dispatch) => {
     setLoadingFormStatus: (status) => {
       dispatch(setLoadingFormStatus(status))
     },
+
+    toggleModal: () => {
+      dispatch(toggleModal())
+    },
   }
 };
 
@@ -180,6 +184,8 @@ ConfigView.propTypes = {
   executingSave: PropTypes.bool,
   loadingForm: PropTypes.bool,
   futureValues: PropTypes.object,
+  toggleModal: PropTypes.func,
+  modalStatus: PropTypes.bool,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConfigView)
