@@ -28,7 +28,7 @@
 /* Edit Icon */
 .editIcon{
         padding-left: 6px;
-        opacity: 0.5;
+        opacity: 0.2;
         cursor: pointer;
 }
 
@@ -62,4 +62,12 @@
 
 .config-save-spinner{
     padding-left: 5px;
+}
+
+.wordwrapper{
+    word-wrap: break-word;
+}
+
+.autowidth{
+    width: auto;
 }

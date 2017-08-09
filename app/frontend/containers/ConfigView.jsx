@@ -10,9 +10,10 @@ import {
   setExecutingSaveStatus,
   setLoadingFormStatus,
 } from '../actions/configActions'
-
+import ButtonComponent from '../components/ButtonModal.jsx';
+import {toggleConfigModal} from '../actions/modalActions';
 import ConfigRow from '../components/ConfigRow.jsx'
-
+import ModalComponentDialog from '../components/ModalWindow.jsx'
 
 class ConfigView extends Component {
 
@@ -57,13 +58,9 @@ class ConfigView extends Component {
     });
   }
 
-  render() {
-    if(!this.props.configValues){
-      return null
-    }
-
+  createConfigRows(){
     let configKeys = Object.keys(this.props.configValues);
-    let configRows = configKeys.map((key, i) => {
+    return configKeys.map((key, i) => {
       return (
         <ConfigRow  key={i}
                     configKey={key}
@@ -72,43 +69,74 @@ class ConfigView extends Component {
                     setInputStatus={this.props.setInputStatus}/>
       )
     });
+  }
 
+  createModalComponent(){
+    let modalTitle = "Configuration Help";
+    let modalContent =<p>One fine body&hellip;</p>;
+    return <ModalComponentDialog isOpen={this.props.modalState}
+                                  toggleModal={this.props.toggleModal}
+                                  modalTitle={modalTitle}
+                                  modalContent={modalContent}/>
+  }
+
+  createFooter(){
+    /*  Spinner for the pending POST request. */
     let buttonSpinner = null;
     if(this.props.executingSave) {
-      buttonSpinner = <div className="spinner spinner-xs spinner-inline config-save-spinner"/>
+      buttonSpinner = <div className="spinner spinner-inline config-save-spinner"/>
     }
 
-    let bodyHTML = null;
+    let saveButton = <button  onClick={this.handleSubmit} className="btn btn-primary">Save</button>;
+    return <div className="container card-pf-footer card-pf fader autowidth">
+        <div className="col-xs-6 col-sm-6">
+            <ButtonComponent toggleModal={this.props.toggleModal}/>
+            {this.createModalComponent()}
+        </div>
+
+        <div className="col-xs-6 col-sm-6">
+          <div className="pull-right aligner">
+            {buttonSpinner}
+            {saveButton}
+          </div>
+        </div>
+
+      </div>;
+  }
+
+  createBody(configRows){
     if(this.props.loadingForm){
-      bodyHTML =
-        <div className="card-pf-footer fader aligner">
-          <div className="spinner"/>
-        </div>
-    } else{
-      bodyHTML =
-        <div className="card-pf-footer fader">
-          <form className="form-horizontal" onSubmit={this.handleSubmit}>
-            {configRows}
-            <div className="form-group">
-              <div className="col-sm-offset-2 col-sm-10">
-                <button  type="submit" className="btn btn-primary">Save</button>
-                {buttonSpinner}
-              </div>
-            </div>
-          </form>
-        </div>
+      /* While the GET request to server is pending, show spinner. */
+      return <div className="card-pf-footer fader aligner">
+        <div className="spinner"/>
+      </div>
+    } else {
+      return <div className="card-pf-footer fader">
+        <form className="form-horizontal">
+          {configRows}
+        </form>
+      </div>
     }
+  }
+
+  render() {
+    /* Config table is not rendered if we have no values */
+    if(!this.props.configValues){
+      return null
+    }
+
+    let configRows = this.createConfigRows();
+    let bodyHTML = this.createBody(configRows);
+    let title = <h2 className="card-pf-title">Configuration</h2>;
+    let footer = this.createFooter();
 
     return(
-      <div className="container-fluid container-cards-pf">
-        <div className="col col-cards-pf">
-          <div className="col-xs-9 col-sm-12 col-md-11">
-            <div className="cards col-xs-10 col-md-8 ">
-              <div className="card-pf">
-                <h2 className="card-pf-title">Configuration</h2>
-                  {bodyHTML}
-              </div>
-            </div>
+      <div className="col col-cards-pf container-cards-pf">
+        <div className="cards col-xs-10 col-md-8 ">
+          <div className="card-pf">
+            {title}
+            {bodyHTML}
+            {footer}
           </div>
         </div>
       </div>
@@ -122,6 +150,7 @@ const mapStateToProps = (state) => {
     executingSave: state.configReducer.executingSave,
     futureValues: state.configReducer.futureValues,
     loadingForm: state.configReducer.loadingForm,
+    modalState: state.modalReducer.config_modal
   }
 };
 
@@ -144,7 +173,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     setLoadingFormStatus: (status) => {
       dispatch(setLoadingFormStatus(status))
-    }
+    },
+    toggleModal: () => {
+      dispatch(toggleConfigModal())
+    },
   }
 };
 
@@ -160,6 +192,8 @@ ConfigView.propTypes = {
   executingSave: PropTypes.bool,
   loadingForm: PropTypes.bool,
   futureValues: PropTypes.object,
+  toggleModal: PropTypes.func,
+  modalState: PropTypes.bool,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConfigView)
