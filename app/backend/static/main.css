@@ -32,6 +32,11 @@
         cursor: pointer;
 }
 
+/* Add pointer icon */
+.pointer{
+    cursor: pointer;
+}
+
 /* Input Field */
 .inputField{
         padding-top: 3px;

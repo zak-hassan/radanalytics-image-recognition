@@ -10,7 +10,7 @@ class ModalComponentDialog extends Component{
   }
 
   closeModal(){
-    this.props.toggleModal(this.props.mid);
+    this.props.toggleModal();
   }
 
   render(){
@@ -53,12 +53,12 @@ class ModalComponentDialog extends Component{
 
 export default ModalComponentDialog;
 
+// Ensure that the toggleModal is the same that is passed to
+// ButtonModal
 ModalComponentDialog.propTypes = {
-  toggleModal: PropTypes.func,
-  contentLabel: PropTypes.string,
-  mid: PropTypes.string,
-  isOpen: PropTypes.bool,
-  modalTitle: PropTypes.string,
-  modalContent: PropTypes.element,
+  toggleModal: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  modalTitle: PropTypes.string.isRequired,
+  modalContent: PropTypes.element.isRequired,
   modalFooter: PropTypes.element,
 };
