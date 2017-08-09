@@ -70,6 +70,12 @@
   transition: height .5s ease-in-out;
 }
 
+.cards {
+        margin: 0 auto;
+        float: none;
+        margin-bottom: 10px;
+}
+
 /* Flex code */
 .aligner {
   display: flex;

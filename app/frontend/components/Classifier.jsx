@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 import ClassificationResult from "../components/ClassificationResult.jsx";
+import ClassificationFeedback from "../components/ClassificationFeedback.jsx";
+import FeedbackLinkModal from "../components/FeedbackLinkModal.jsx";
 
 class Classifier extends Component {
 
@@ -9,7 +11,9 @@ class Classifier extends Component {
     return {
       classification: PropTypes.array,
       file: PropTypes.object,
-      setImageClassification: PropTypes.func
+      setImageClassification: PropTypes.func,
+      toggleModal: PropTypes.func,
+      modalState: PropTypes.bool
     }
   }
 
@@ -32,7 +36,7 @@ class Classifier extends Component {
     if(this.props.classification) {
       classificationResults = this.props.classification.map(result => {
         return (
-          <ClassificationResult className="fader" key={result[1]} _class={result[1]} value={result[0]}/>
+          <ClassificationResult key={result[1]} _class={result[1]} value={result[0]}/>
         );
       })
     //otherwise, load a spinner
@@ -53,7 +57,11 @@ class Classifier extends Component {
           <div className="card-pf-body">
             {classificationResults}
             {this.props.classification &&
-            <div>feedback</div>}
+            <div className="resultsFeedback">
+              <FeedbackLinkModal toggleModal={this.props.toggleModal}/>
+              <ClassificationFeedback toggleModal={this.props.toggleModal}
+                modalState={this.props.modalState}/>
+            </div>}
           </div>
         </div>}
       </div>

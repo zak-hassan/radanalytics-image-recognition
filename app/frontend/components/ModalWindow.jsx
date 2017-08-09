@@ -2,7 +2,6 @@ import React,{Component} from 'react';
 import Modal from 'react-modal';
 import PropTypes from 'prop-types';
 
-
 class ModalComponentDialog extends Component{
   constructor(props){
     super(props);

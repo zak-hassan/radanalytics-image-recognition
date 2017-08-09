@@ -11,18 +11,22 @@ class ClassificationFeedback extends Component {
     }
   }
 
+  submitFeedback(){
+    this.props.toggleModal;
+  }
+
   createModalContent(){
     return (
       <div className="container">
-        <label className="radio">
-          <input type="radio" name="options" id="top1" /> Top result
-        </label>
-        <label className="radio">
-          <input type="radio" name="options" id="top5" /> In the top 5
-        </label>
-        <label className="radio">
-          <input type="radio" name="options" id="none" /> Not in the top 5
-        </label>
+        <div>
+          <a>Top result</a>
+        </div>
+        <div>
+          <a>In the top 5</a>
+        </div>
+        <div>
+          <a>Not in the top 5</a>
+        </div>
       </div>
     );
   }

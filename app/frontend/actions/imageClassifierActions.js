@@ -21,6 +21,13 @@ export function setClassification(classification) {
   }
 }
 
+export function setFeedback(feedback) {
+  return {
+    type: "SET_FEEDBACK",
+    payload: feedback
+  }
+}
+
 export function clearClassification() {
   return {
     type: "CLEAR_CLASSIFICATION"
