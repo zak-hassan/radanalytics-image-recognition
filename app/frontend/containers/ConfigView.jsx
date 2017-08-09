@@ -12,7 +12,7 @@ import {
 } from '../actions/configActions'
 
 import ConfigRow from '../components/ConfigRow.jsx'
-
+import ModalComponentDialog from './modalContainer.jsx'
 
 class ConfigView extends Component {
 
@@ -109,6 +109,7 @@ class ConfigView extends Component {
         <div className="col-xs-6 col-sm-6">
           <a className="card-pf-link-with-icon" data-toggle="modal" data-target=".bs-example-modal-lg">
             <span className="pficon pficon-help"/> Help
+            <ModalComponentDialog/>
           </a>
         </div>
         <div className="col-xs-6 col-sm-6">
