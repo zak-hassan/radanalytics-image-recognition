@@ -58,14 +58,9 @@ class ConfigView extends Component {
     });
   }
 
-  render() {
-    /* Config table is not rendered if we have no values */
-    if(!this.props.configValues){
-      return null
-    }
-
+  createConfigRows(){
     let configKeys = Object.keys(this.props.configValues);
-    let configRows = configKeys.map((key, i) => {
+    return configKeys.map((key, i) => {
       return (
         <ConfigRow  key={i}
                     configKey={key}
@@ -74,44 +69,29 @@ class ConfigView extends Component {
                     setInputStatus={this.props.setInputStatus}/>
       )
     });
+  }
 
+  createModalComponent(){
+    let modalTitle = "Configuration Help";
+    let modalContent =<p>One fine body&hellip;</p>;
+    return <ModalComponentDialog isOpen={this.props.modalState}
+                                  toggleModal={this.props.toggleModal}
+                                  modalTitle={modalTitle}
+                                  modalContent={modalContent}/>
+  }
+
+  createFooter(){
     /*  Spinner for the pending POST request. */
     let buttonSpinner = null;
     if(this.props.executingSave) {
       buttonSpinner = <div className="spinner spinner-inline config-save-spinner"/>
     }
 
-    /* While the GET request to server is pending, show spinner. */
-    let bodyHTML = null;
-    if(this.props.loadingForm){
-      bodyHTML =
-        <div className="card-pf-footer fader aligner">
-          <div className="spinner"/>
-        </div>
-    } else{
-      bodyHTML =
-        <div className="card-pf-footer fader">
-          <form className="form-horizontal">
-            {configRows}
-          </form>
-        </div>
-    }
-
     let saveButton = <button  onClick={this.handleSubmit} className="btn btn-primary">Save</button>;
-    let title = <h2 className="card-pf-title">Configuration</h2>;
-
-
-    let modalTitle = "Configuration Help";
-    let modalContent =<p>One fine body&hellip;</p>
-    
-    let footer =
-      <div className="container card-pf-footer card-pf fader autowidth">
+    return <div className="container card-pf-footer card-pf fader autowidth">
         <div className="col-xs-6 col-sm-6">
             <ButtonComponent toggleModal={this.props.toggleModal}/>
-            <ModalComponentDialog isOpen={this.props.modalState}
-                                  toggleModal={this.props.toggleModal}
-                                  modalTitle={modalTitle}
-                                  modalContent={modalContent}/>
+            {this.createModalComponent()}
         </div>
 
         <div className="col-xs-6 col-sm-6">
@@ -122,6 +102,33 @@ class ConfigView extends Component {
         </div>
 
       </div>;
+  }
+
+  createBody(configRows){
+    if(this.props.loadingForm){
+      /* While the GET request to server is pending, show spinner. */
+      return <div className="card-pf-footer fader aligner">
+        <div className="spinner"/>
+      </div>
+    } else {
+      return <div className="card-pf-footer fader">
+        <form className="form-horizontal">
+          {configRows}
+        </form>
+      </div>
+    }
+  }
+
+  render() {
+    /* Config table is not rendered if we have no values */
+    if(!this.props.configValues){
+      return null
+    }
+
+    let configRows = this.createConfigRows();
+    let bodyHTML = this.createBody(configRows);
+    let title = <h2 className="card-pf-title">Configuration</h2>;
+    let footer = this.createFooter();
 
     return(
       <div className="col col-cards-pf container-cards-pf">
