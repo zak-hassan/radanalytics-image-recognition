@@ -1,7 +1,7 @@
-import { getIcon } from "./utils"
+import { getIcon } from "./utils";
 
 export function setMessage(message, type){
-  const icon = getIcon(type)
+  const icon = getIcon(type);
   return {
     type: "SET_MESSAGE",
     payload: {message:message, messageType: type, icon: icon}
@@ -23,9 +23,9 @@ export function clearMessage() {
 
 export function setMessageWithTimeout(message, type) {
   return(dispatch) => {
-    dispatch(setMessage(message, type))
+    dispatch(setMessage(message, type));
     setTimeout(() => {
-      dispatch(setVisible(false))}, 3000)
+      dispatch(setVisible(false))}, 3000);
     }
 }
 

@@ -1,5 +1,5 @@
-import $ from "jquery"
-import { setMessage, setMessageWithTimeout } from "./messageActions"
+import $ from "jquery";
+import { setMessage, setMessageWithTimeout } from "./messageActions";
 
 export function setUploadFile(file) {
   return {
@@ -21,6 +21,13 @@ export function setClassification(classification) {
   }
 }
 
+export function setFeedback(feedback) {
+  return {
+    type: "SET_FEEDBACK",
+    payload: feedback
+  }
+}
+
 export function clearClassification() {
   return {
     type: "CLEAR_CLASSIFICATION"
@@ -28,9 +35,9 @@ export function clearClassification() {
 }
 
 export function setImageClassification(file) {
-  var formData = new FormData()
-  formData.append("file", file)
-  const url = "/api/v1/imgrecognize"
+  var formData = new FormData();
+  formData.append("file", file);
+  const url = "/api/v1/imgrecognize";
 
   return(dispatch) => {
     $.ajax({
@@ -40,14 +47,14 @@ export function setImageClassification(file) {
       contentType: false,
       processData: false,
       beforeSend: function() {
-        dispatch(clearClassification())
+        dispatch(clearClassification());
       },
       success: function(result) {
-        dispatch(setClassification(result.pred))
-        dispatch(setMessageWithTimeout("Successfully classified image", "success"))
+        dispatch(setClassification(result.pred));
+        dispatch(setMessageWithTimeout("Successfully classified image", "success"));
       },
       error: function(error) {
-        dispatch(setMessage(error, "danger"))
+        dispatch(setMessage(error, "danger"));
       }
     })
   }

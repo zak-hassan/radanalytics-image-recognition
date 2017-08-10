@@ -1,6 +1,6 @@
-import React, { Component } from "react"
-import PropTypes from "prop-types"
-import Dropzone from "react-dropzone"
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import Dropzone from "react-dropzone";
 
 class ImageUploader extends Component {
 
@@ -14,11 +14,11 @@ class ImageUploader extends Component {
 
   onDropAccepted(uploadFile) {
     //set new image
-    this.props.setUploadFile(uploadFile[0])
+    this.props.setUploadFile(uploadFile[0]);
   }
 
   onDropRejected() {
-    this.props.setMessageTimeout("Filetype not supported. Supported file types: jpg, png", "danger")
+    this.props.setMessageTimeout("Filetype not supported. Supported file types: jpg and png", "danger");
   }
 
   render() {
@@ -30,7 +30,7 @@ class ImageUploader extends Component {
           </h2>
           <div className="card-pf-body">
             <Dropzone
-              className="dropzone" accept="image/jpg, image/jpeg, image/png"
+              className="dropzone aligner" accept="image/jpg, image/jpeg, image/png"
               onDropAccepted={(files) => this.onDropAccepted(files)}
               onDropRejected={() => this.onDropRejected()}>
               {(this.props.file) && <img className="dropzone-image" src={this.props.file.preview}/>}
@@ -38,8 +38,8 @@ class ImageUploader extends Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default ImageUploader
+export default ImageUploader;

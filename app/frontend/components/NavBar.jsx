@@ -1,7 +1,7 @@
-import React, { Component } from "react"
-import { Link } from "react-router-dom"
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
-import NavTab from "./NavTab.jsx"
+import NavTab from "./NavTab.jsx";
 
 class Navbar extends Component {
 
@@ -19,8 +19,8 @@ class Navbar extends Component {
           <NavTab to="/config">Configuration</NavTab>
         </ul>
       </nav>
-    )
+    );
   }
 }
 
-export default Navbar
+export default Navbar;
