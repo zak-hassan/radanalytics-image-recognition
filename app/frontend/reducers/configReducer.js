@@ -1,20 +1,15 @@
+import { CONFIG } from "../actions/constants"
 
-const configReducer = (
-  state = {
+const initialState = {
     configValues: {},
     futureValues: {},
     executingSave: false,
     loadingForm: true,
-  }, action) => {
+  };
 
-  /*
-  Example of a state:
-  state.configValues = {uploadFolder: {placeholder: 'pathto/upload/folder', active: True, desc: '...'},
-                        imageFolder: {placeholder: 'pathto/image/folder', active: False, desc: '...'}}
-  */
-
+const configReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "SET_CONFIG_VALUES": {
+    case CONFIG.SET_CONFIG_VALUES: {
       // Invoked when a config value is changed.
       state = {
         ...state,
@@ -30,8 +25,7 @@ const configReducer = (
       state.futureValues[key] = {...state.configValues[key], placeholder: configToValue[1]};
       break;
     }
-
-    case "SET_INIT_CONFIG": {
+    case CONFIG.SET_INIT_CONFIG: {
       state = {...state,};
 
       let newConfigValues = {};
@@ -49,8 +43,7 @@ const configReducer = (
       state.futureValues = {};
       break;
     }
-
-    case "SET_SAVE_CONFIG": {
+    case CONFIG.SET_SAVE_CONFIG: {
       let config_change = action.payload.config_change;
       state = {...state,};
 
@@ -67,8 +60,7 @@ const configReducer = (
       });
       break;
     }
-
-    case "SET_INPUT_STATUS": {
+    case CONFIG.SET_INPUT_STATUS: {
       let key = action.payload[0];
       let status = action.payload[1];
       state = {
@@ -77,18 +69,16 @@ const configReducer = (
       state.configValues[key].active = status;
       break;
     }
-
-    case "SET_EXECUTING_SAVE_STATUS":
+    case CONFIG.SET_EXECUTING_SAVE_STATUS:
       state = {...state};
       state.executingSave = action.payload;
       break;
-
-    case "SET_LOADING_FORM_STATUS":
+    case CONFIG.SET_LOADING_FORM_STATUS:{
       state = {...state};
       state.loadingForm = action.payload;
       break;
-
-    case "SET_RESET_CONFIG":{
+    }
+    case CONFIG.SET_RESET_CONFIG:{
       state = {...state,};
 
       let configKeys = Object.keys(state.configValues);
