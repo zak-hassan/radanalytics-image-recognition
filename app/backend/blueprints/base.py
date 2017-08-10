@@ -36,12 +36,28 @@ def set_settings():
     if request.method == 'GET':
         mock_data = {
             "config": {
-                "training_model_uri": app.config['TRAINED_MODEL_URL'],
-                "upload_folder": app.config['UPLOAD_FOLDER'],
-                "allowed_Extensions": 'jpeg,jpg',
-                "model_folder_name": '.model',
-                "model_folder_location": 'path/to/model/',
-                "image_folder": 'path/to/image/folder'
+                "training_model_uri": {
+                    'data': app.config['TRAINED_MODEL_URL'],
+                    'description': "A link to the Pre-trained inception model."},
+                "upload_folder": {
+                    'data': app.config['UPLOAD_FOLDER'],
+                    'description': "A (relative) path to where the server "
+                                   "uploads the images."},
+                "allowed_Extensions": {
+                    'data': 'jpeg,jpg',
+                    'description': "A list of comma-separated file extensions "
+                                   "that the model will accept."},
+                "model_folder_name": {
+                    'data': '.model',
+                    'description': "The name of the folder that stores "
+                                   "the pre-trained model."},
+                "model_folder_location": {
+                    'data': "old/path/to/model/folder/location",
+                    'description': "A link to the Pre-trained inception model."},
+                "image_folder": {
+                    'data': '.img_folder',
+                    'description': 'The name of the folder that stores uploaded'
+                                   'images.'}
             }
         }
 

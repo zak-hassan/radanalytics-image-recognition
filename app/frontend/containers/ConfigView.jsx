@@ -9,17 +9,21 @@ import {
   setInputStatus,
   setExecutingSaveStatus,
   setLoadingFormStatus,
+  resetConfig,
+
 } from '../actions/configActions'
 import ButtonComponent from '../components/ButtonModal.jsx';
 import {toggleConfigModal} from '../actions/modalActions';
 import ConfigRow from '../components/ConfigRow.jsx'
 import ModalComponentDialog from '../components/ModalWindow.jsx'
+import { setMessage, setMessageWithTimeout } from "../actions/messageActions"
 
 class ConfigView extends Component {
 
   constructor(){
     super();
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleReset = this.handleReset.bind(this)
   }
 
   componentWillMount(){
@@ -33,7 +37,10 @@ class ConfigView extends Component {
         this.props.setInitConfig(result);
         this.props.setLoadingFormStatus(false);
       }.bind(this),
-      error: function(){}
+      error: function(){
+        this.props.setLoadingFormStatus(false);
+        this.props.setMessage('Could not successfully retrieve information from server', "danger")
+      }.bind(this),
     });
   }
 
@@ -42,7 +49,6 @@ class ConfigView extends Component {
     const url = '/api/v1/settings';
     let payLoad = {config: this.props.futureValues};
     this.props.setExecutingSaveStatus(true);
-    this.forceUpdate();
     $.ajax({
       type: 'POST',
       url: url,
@@ -52,10 +58,17 @@ class ConfigView extends Component {
       success: function (result) {
         this.props.setExecutingSaveStatus(false);
         this.props.setSaveConfig(result);
-        this.forceUpdate();
+        this.props.setMessageWithTimeout('Configuration Updated Successfully!', "success");
       }.bind(this),
-      error: function (){}
+      error: function (){
+        this.props.setExecutingSaveStatus(false);
+        this.props.setMessage('Could not successfully send information to server', "danger");
+      }.bind(this)
     });
+  }
+
+  handleReset(){
+    this.props.resetConfig()
   }
 
   createConfigRows(){
@@ -73,7 +86,16 @@ class ConfigView extends Component {
 
   createModalComponent(){
     let modalTitle = "Configuration Help";
-    let modalContent =<p>One fine body&hellip;</p>;
+
+    let configValues = this.props.configValues;
+    let keys = Object.keys(configValues);
+    let modalContent = keys.map((key, i) => {
+      return <div key={i}>
+        <label>{key}</label>
+        <p>{configValues[key].description}</p>
+      </div>
+    });
+    modalContent = <div>{modalContent}</div>;
     return <ModalComponentDialog isOpen={this.props.modalState}
                                   toggleModal={this.props.toggleModal}
                                   modalTitle={modalTitle}
@@ -87,27 +109,27 @@ class ConfigView extends Component {
     let helpButton = <a className="card-pf-link-with-icon pointer" >
         <span className="pficon pficon-help"/>
         Help
-      </a>
+      </a>;
     if(this.props.executingSave) {
       buttonSpinner = <div className="spinner spinner-inline config-save-spinner"/>
     }
 
     let saveButton = <button  onClick={this.handleSubmit} className="btn btn-primary">Save</button>;
+    let resetButton = <button onClick={this.handleReset} className="btn btn-primary m-r-8">Reset</button>;
     return <div className="container card-pf-footer card-pf fader autowidth">
-        <div className="col-xs-6 col-sm-6">
-            <ButtonComponent toggleModal={this.props.toggleModal}
-            content={helpButton}/>
-            {this.createModalComponent()}
+      <div className="col-xs-6 col-sm-6">
+        <ButtonComponent toggleModal={this.props.toggleModal}
+                         content={helpButton}/>
+        {this.createModalComponent()}
+      </div>
+      <div className="col-xs-6 col-sm-6">
+        <div className="pull-right aligner">
+          {buttonSpinner}
+          {resetButton}
+          {saveButton}
         </div>
-
-        <div className="col-xs-6 col-sm-6">
-          <div className="pull-right aligner">
-            {buttonSpinner}
-            {saveButton}
-          </div>
-        </div>
-
-      </div>;
+      </div>
+    </div>;
   }
 
   createBody(configRows){
@@ -183,6 +205,15 @@ const mapDispatchToProps = (dispatch) => {
     toggleModal: () => {
       dispatch(toggleConfigModal())
     },
+    setMessageWithTimeout: (msg, type) => {
+      dispatch(setMessageWithTimeout(msg, type))
+    },
+    resetConfig: () => {
+      dispatch(resetConfig())
+    },
+    setMessage: (msg, type) => {
+      dispatch(setMessage(msg, type))
+    }
   }
 };
 
@@ -200,6 +231,9 @@ ConfigView.propTypes = {
   futureValues: PropTypes.object,
   toggleModal: PropTypes.func,
   modalState: PropTypes.bool,
+  resetConfig: PropTypes.func,
+  setMessageWithTimeout: PropTypes.func,
+  setMessage: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConfigView)
