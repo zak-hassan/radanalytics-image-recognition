@@ -1,6 +1,8 @@
+import { MODAL } from "./constants"
+
 export function toggleConfigModal(){
   return {
-    type: "TOGGLE_MODAL",
+    type: MODAL.TOGGLE_MODAL,
     payload: "config_modal"
   };
 }

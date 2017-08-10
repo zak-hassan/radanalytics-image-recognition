@@ -1,4 +1,5 @@
 import { CONFIG } from "./constants"
+
 export function setConfigValues (e) {
   e.preventDefault();
   let updatedValues = [e.target.name, e.target.value];
