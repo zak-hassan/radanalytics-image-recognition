@@ -35,7 +35,7 @@ export function clearClassification() {
 }
 
 export function setImageClassification(file) {
-  var formData = new FormData();
+  let formData = new FormData();
   formData.append("file", file);
   const url = "/api/v1/imgrecognize";
 
@@ -60,3 +60,16 @@ export function setImageClassification(file) {
   }
 }
 
+export function setSelectedOption(selection){
+  return {
+    type: "SET_OPTION",
+    payload: selection
+  }
+}
+
+export function setExecutingSave(state){
+  return {
+    type: "SET_EXECUTING_SAVE",
+    payload: state
+  }
+}

@@ -31,6 +31,14 @@ def allowed_file(filename):
            app.config['ALLOWED_EXTENSIONS']
 
 
+@basepage.route("/api/v1/stats", methods=['POST'])
+def store_stats():
+    mock_data = {}
+
+    return Response(json.dumps(mock_data), status=200,
+                    mimetype="application/json")
+
+
 @basepage.route("/api/v1/settings", methods=['POST','GET'])
 def set_settings():
     if request.method == 'GET':

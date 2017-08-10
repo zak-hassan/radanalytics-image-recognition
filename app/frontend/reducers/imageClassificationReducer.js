@@ -1,4 +1,11 @@
-const imageClassificationReducer = (state = {file: null, classification: null}, action) => {
+const initialState = {
+  file: null,
+  classification: null,
+  selectedOption: 1,
+  executingSave: false,
+};
+
+const imageClassificationReducer = (state = initialState, action) => {
   switch (action.type) {
     case "SET_FILE":
       state = {
@@ -17,7 +24,19 @@ const imageClassificationReducer = (state = {file: null, classification: null}, 
         ...state,
         classification: null
       };
-      break
+      break;
+    case "SET_OPTION":
+      state = {
+        ...state,
+        selectedOption: action.payload
+      };
+      break;
+    case "SET_EXECUTING_SAVE":
+      state = {
+        ...state,
+        executingSave: action.payload
+      };
+      break;
   }
   return state
 };
