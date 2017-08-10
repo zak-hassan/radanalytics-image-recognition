@@ -44,8 +44,8 @@ export function setLoadingFormStatus(status){
   }
 }
 
-export function deactivateConfigFields(){
+export function resetConfig(){
   return {
-    type:"DEACTIVATE_CONFIG_FIELDS",
+    type:"SET_RESET_CONFIG",
   }
 }

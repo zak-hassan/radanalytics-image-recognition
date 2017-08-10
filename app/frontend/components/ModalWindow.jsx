@@ -34,7 +34,7 @@ class ModalComponentDialog extends Component{
           className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
-              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+              <button type="button" className="close" onClick={this.closeModal} data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
               <h4 className="modal-title">{this.props.modalTitle}</h4>

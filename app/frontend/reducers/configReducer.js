@@ -9,12 +9,13 @@ const configReducer = (
 
   /*
   Example of a state:
-  state.configValues = {uploadFolder: {placeholder: 'pathto/upload/folder', active: True},
-                        imageFolder: {placeholder: 'pathto/image/folder', active: False}}
+  state.configValues = {uploadFolder: {placeholder: 'pathto/upload/folder', active: True, desc: '...'},
+                        imageFolder: {placeholder: 'pathto/image/folder', active: False, desc: '...'}}
   */
 
   switch (action.type) {
     case "SET_CONFIG_VALUES": {
+      // Invoked when a config value is changed.
       state = {
         ...state,
       };
@@ -37,7 +38,11 @@ const configReducer = (
       let configValues = action.payload.config;
       let configKeys = Object.keys(configValues);
       configKeys.map((key) => {
-        newConfigValues[key] = {placeholder: configValues[key], active: false}
+        newConfigValues[key] = {
+          placeholder: configValues[key]['data'],
+          active: false,
+          description: configValues[key]['description'],
+        }
       });
 
       state.configValues = newConfigValues;
@@ -82,6 +87,17 @@ const configReducer = (
       state = {...state};
       state.loadingForm = action.payload;
       break;
+
+    case "SET_RESET_CONFIG":{
+      state = {...state,};
+
+      let configKeys = Object.keys(state.configValues);
+      configKeys.map((key) => {
+        state.configValues[key].active = false;
+      });
+      state.futureValues = {};
+      break;
+    }
 
   }
   return state
