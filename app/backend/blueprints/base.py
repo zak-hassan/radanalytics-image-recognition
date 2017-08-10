@@ -34,6 +34,10 @@ def allowed_file(filename):
 @basepage.route("/api/v1/stats", methods=['POST'])
 def store_stats():
     mock_data = {}
+    file = request.files['file']
+    # Option takes the form of an int in [1, 2, 3]
+    # Where {1: "First Choice", 2: "Top 5", 3: "None of the above"}
+    option = int(request.form['option'])
 
     return Response(json.dumps(mock_data), status=200,
                     mimetype="application/json")
