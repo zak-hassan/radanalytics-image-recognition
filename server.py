@@ -49,4 +49,4 @@ def register_blueprints(flask_app):
 if __name__ == "__main__":
     app = create_app()
     port = int(environ.get("PORT", 8081))
-    app.run(host='localhost', port=port)
+    app.run(host='0.0.0.0', port=port)

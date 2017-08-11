@@ -4,4 +4,3 @@ pytest>=3.1
 infinispan
 datetime
 numpy
-tensorflow
