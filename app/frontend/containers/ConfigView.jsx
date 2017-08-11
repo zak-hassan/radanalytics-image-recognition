@@ -106,16 +106,19 @@ class ConfigView extends Component {
     /*  Spinner for the pending POST request. */
     let buttonSpinner = null;
 
-    let helpButton = <a className="card-pf-link-with-icon pointer" >
+    let helpButton =
+      <a className="card-pf-link-with-icon" >
         <span className="pficon pficon-help"/>
         Help
       </a>;
+
     if(this.props.executingSave) {
       buttonSpinner = <div className="spinner spinner-inline config-save-spinner"/>
     }
 
     let saveButton = <button  onClick={this.handleSubmit} className="btn btn-primary">Save</button>;
     let resetButton = <button onClick={this.handleReset} className="btn btn-primary m-r-8">Reset</button>;
+
     return <div className="container card-pf-footer card-pf fader autowidth">
       <div className="col-xs-6 col-sm-6">
         <ButtonComponent toggleModal={this.props.toggleModal}

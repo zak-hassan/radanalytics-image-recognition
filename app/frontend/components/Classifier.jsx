@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import ClassificationResult from "../components/ClassificationResult.jsx";
 import ClassificationFeedback from "../components/ClassificationFeedback.jsx";
-import FeedbackLinkModal from "../components/FeedbackLinkModal.jsx";
+import ButtonComponent from '../components/ButtonModal.jsx';
 
 class Classifier extends Component {
 
@@ -20,8 +20,26 @@ class Classifier extends Component {
     }
   }
 
+  createFooter(){
+    /*  Spinner for the pending POST request. */
+    let buttonSpinner = null;
+
+    let aligner = "";
+    if(this.props.executingSave) {
+      aligner = "aligner";
+      buttonSpinner = <div className="spinner spinner-inline config-save-spinner"/>
+    }
+
+    let link = <div className={aligner}><a>Classification feedback</a>{buttonSpinner}</div>;
+    return (
+      <div className="card-pf-footer card-pf fader autowidth">
+        <ButtonComponent toggleModal={this.props.toggleModal} content={link}/>
+      </div>
+    );
+  }
+
   render() {
-    let classificationResults
+    let classificationResults;
     //classification exists
     if(this.props.classification) {
       classificationResults = this.props.classification.map(result => {
@@ -48,7 +66,6 @@ class Classifier extends Component {
             {classificationResults}
             {this.props.classification &&
             <div className="resultsFeedback">
-              <FeedbackLinkModal toggleModal={this.props.toggleModal}/>
               <ClassificationFeedback
                 toggleModal={this.props.toggleModal}
                 modalState={this.props.modalState}
@@ -62,6 +79,7 @@ class Classifier extends Component {
               />
             </div>}
           </div>
+          {this.createFooter()}
         </div>}
       </div>
     );

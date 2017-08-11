@@ -12,14 +12,13 @@ class ClassificationFeedback extends Component {
 
   handleFormSubmit(e){
     e.preventDefault();
-    // Do a post request then close
-    console.log('You have selected:', this.props.selectedOption);
+    // Do a post request then close mdoal
     let formData = new FormData();
     formData.append("file", this.props.imageFile);
     formData.append("option", this.props.selectedOption);
     const url = '/api/v1/stats';
     this.props.setExecutingSave(true);
-
+    this.props.toggleModal();
     $.ajax({
       type: 'POST',
       url: url,
@@ -27,7 +26,6 @@ class ClassificationFeedback extends Component {
       contentType: false,
       processData: false,
       success: function () {
-        this.props.toggleModal();
         this.props.setExecutingSave(false);
         this.props.setMessageWithTimeout('Feedback stored successfully, thank you!', "success");
       }.bind(this),
@@ -43,30 +41,43 @@ class ClassificationFeedback extends Component {
     this.props.setSelectedOption(Number.parseInt(e.target.value));
   }
 
+  createModalFooter(){
+    return (
+      <div className="modal-footer">
+        <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.handleFormSubmit}>Save</button>
+      </div>
+    )
+  }
+
   createModalContent(){
     return (
-
       <div className="container">
+        <p> Please rate the accuracy of the results! </p>
         <form onSubmit={this.handleFormSubmit}>
           <div className="radio">
             <label>
-              <input type="radio" value={1} checked={this.props.selectedOption === 1} onChange={this.handleOptionChange} />
-              Option 1
+              <input type="radio" value={1}
+                     checked={this.props.selectedOption === 1}
+                     onChange={this.handleOptionChange} />
+              Top Choice
             </label>
           </div>
           <div className="radio">
             <label>
-              <input type="radio" value={2} checked={this.props.selectedOption === 2} onChange={this.handleOptionChange}/>
-              Option 2
+              <input type="radio" value={2}
+                     checked={this.props.selectedOption === 2}
+                     onChange={this.handleOptionChange}/>
+              Within the top 5 choices
             </label>
           </div>
           <div className="radio">
             <label>
-              <input type="radio" value={3} checked={this.props.selectedOption === 3} onChange={this.handleOptionChange}/>
-              Option 3
+              <input type="radio" value={3}
+                     checked={this.props.selectedOption === 3}
+                     onChange={this.handleOptionChange}/>
+              None of the above!
             </label>
           </div>
-          <button className="btn btn-default" type="submit">Save</button>
         </form>
       </div>
     );
@@ -78,7 +89,8 @@ class ClassificationFeedback extends Component {
       <ModalComponentDialog isOpen={this.props.modalState}
         toggleModal={this.props.toggleModal}
         modalTitle={"Classification Feedback"}
-        modalContent={content}/>
+        modalContent={content}
+        modalFooter={this.createModalFooter()}/>
     );
   }
 }

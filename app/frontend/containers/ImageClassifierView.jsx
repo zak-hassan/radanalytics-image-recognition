@@ -14,8 +14,7 @@ class ImageClassifierView extends Component {
     return (
       <div className="ImageClassifierView">
         <div className="container container-cards-pf">
-          <div className="col col-cards-pf">
-            <div className="cards col-xs-6 col-md-12">
+            <div className="cards col-xs-12 col-md-8">
               <ImageUploader file={this.props.file}
                 setUploadFile={this.props.setUploadFile}
                 setMessageTimeout={this.props.setMessageTimeout}/>
@@ -32,7 +31,6 @@ class ImageClassifierView extends Component {
                 setMessageWithTimeout={this.props.setMessageWithTimeout}
               />
             </div>
-          </div>
         </div>
       </div>
     );
