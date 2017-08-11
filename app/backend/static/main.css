@@ -16,6 +16,11 @@
         user-select: none;
 }
 
+.img-thumb {
+        width:75px;
+        height:75px;
+}
+
 /* Edit Icon */
 .editIcon{
         padding-left: 6px;
