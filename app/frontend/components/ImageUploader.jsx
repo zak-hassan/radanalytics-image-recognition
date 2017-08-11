@@ -26,11 +26,11 @@ class ImageUploader extends Component {
       <div className="ImageUploader">
         <div className="card-pf card-pf-accented">
           <h2 className="card-pf-title text-center">
-            <span className="fa fa-upload"></span><span className="card-pf-aggregate-status-count"> Upload an image</span>
+            <span className="fa fa-upload"/><span className="card-pf-aggregate-status-count"> Upload an image</span>
           </h2>
           <div className="card-pf-body">
             <Dropzone
-              className="dropzone aligner" accept="image/jpg, image/jpeg, image/png"
+              className="dropzone aligner pointer" accept="image/jpg, image/jpeg, image/png"
               onDropAccepted={(files) => this.onDropAccepted(files)}
               onDropRejected={() => this.onDropRejected()}>
               {(this.props.file) && <img className="dropzone-image" src={this.props.file.preview}/>}

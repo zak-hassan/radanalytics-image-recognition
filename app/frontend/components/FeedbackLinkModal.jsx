@@ -19,4 +19,3 @@ class FeedbackLinkModal extends Component{
 }
 
 export default FeedbackLinkModal;
-

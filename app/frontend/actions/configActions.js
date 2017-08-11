@@ -1,29 +1,31 @@
+import { CONFIG } from "./constants"
+
 export function setConfigValues (e) {
   e.preventDefault();
   let updatedValues = [e.target.name, e.target.value];
   return {
-    type: "SET_CONFIG_VALUES",
+    type: CONFIG.SET_CONFIG_VALUES,
     payload: updatedValues
   }
 }
 
 export function setInitConfig(configuration){
   return {
-    type: "SET_INIT_CONFIG",
+    type: CONFIG.SET_INIT_CONFIG,
     payload: configuration
   }
 }
 
 export function saveConfig(result){
   return {
-    type: "SET_SAVE_CONFIG",
+    type: CONFIG.SET_SAVE_CONFIG,
     payload: result
   }
 }
 
 export function setInputStatus(key, status){
   return {
-    type: "SET_INPUT_STATUS",
+    type: CONFIG.SET_INPUT_STATUS,
     payload: [key, status]
   }
 }
@@ -31,7 +33,7 @@ export function setInputStatus(key, status){
 /* Track when post request is being handled */
 export function setExecutingSaveStatus(status){
   return {
-    type: "SET_EXECUTING_SAVE_STATUS",
+    type: CONFIG.SET_EXECUTING_SAVE_STATUS,
     payload: status
   }
 }
@@ -39,13 +41,13 @@ export function setExecutingSaveStatus(status){
 /* Track when get request is being handled for form load */
 export function setLoadingFormStatus(status){
   return {
-    type: "SET_LOADING_FORM_STATUS",
+    type: CONFIG.SET_LOADING_FORM_STATUS,
     payload: status
   }
 }
 
 export function resetConfig(){
   return {
-    type:"SET_RESET_CONFIG",
+    type: CONFIG.SET_RESET_CONFIG,
   }
 }

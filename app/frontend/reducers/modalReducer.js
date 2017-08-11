@@ -1,3 +1,5 @@
+import { MODAL } from "../actions/constants"
+
 const initialState = {
   config_modal: false,
   class_modal: false,
@@ -5,7 +7,7 @@ const initialState = {
 
 const modalReducer = function(state = initialState, action){
   switch(action.type){
-    case "TOGGLE_MODAL": {
+    case MODAL.TOGGLE_MODAL: {
       let mid = action.payload;
       state = {...state};
       state[mid] = (state[mid] === false);

@@ -14,7 +14,7 @@ class ButtonComponent extends Component{
 
   render(){
     return (
-      <div onClick={this.openModel}>
+      <div className="pointer" onClick={this.openModel}>
         {this.props.content}
       </div>
     );
