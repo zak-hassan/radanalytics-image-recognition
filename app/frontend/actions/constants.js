@@ -33,3 +33,7 @@ export const STATS = {
     SET_NUM_RES: "SET_NUM_RES",
     SET_RES_HIS: "SET_RES_HIS",
 };
+
+export const NAV = {
+    SET_ROUTE: "SET_ROUTE",
+};
