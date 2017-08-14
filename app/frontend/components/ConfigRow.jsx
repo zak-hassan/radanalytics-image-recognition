@@ -2,6 +2,14 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 
 export default class ConfigRow extends Component{
+  static get propTypes() {
+    return {
+      configKey: PropTypes.string,
+      configValue: PropTypes.object,
+      setConfigValues: PropTypes.func,
+      setInputStatus: PropTypes.func,
+    }
+  }
 
   constructor(){
     super();
@@ -46,10 +54,3 @@ export default class ConfigRow extends Component{
     )
   }
 }
-
-ConfigRow.propTypes = {
-  configKey: PropTypes.string,
-  configValue: PropTypes.object,
-  setConfigValues: PropTypes.func,
-  setInputStatus: PropTypes.func,
-};

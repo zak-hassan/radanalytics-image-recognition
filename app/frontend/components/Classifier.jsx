@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-
 import ClassificationResult from "../components/ClassificationResult.jsx";
 import ClassificationFeedback from "../components/ClassificationFeedback.jsx";
 import ButtonComponent from '../components/ButtonModal.jsx';
@@ -49,7 +48,10 @@ class Classifier extends Component {
       })
     //otherwise, load a spinner
     } else {
-      classificationResults = <div className="spinner spinner-xs spinner-inline"/>;
+      classificationResults =
+        <div className="aligner">
+          <div className="spinner"/>
+        </div>
     }
 
     //if a file is uploaded, display results
@@ -99,6 +101,6 @@ Classifier.propTypes = {
   setMessage: PropTypes.func,
   executingSave: PropTypes.bool,
   setExecutingSave: PropTypes.func,
-
 };
+
 export default Classifier;

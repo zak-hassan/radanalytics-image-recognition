@@ -1,23 +1,24 @@
 import { getIcon } from "./utils";
+import { MESSAGE } from "./constants"
 
 export function setMessage(message, type){
   const icon = getIcon(type);
   return {
-    type: "SET_MESSAGE",
+    type: MESSAGE.SET_MESSAGE,
     payload: {message:message, messageType: type, icon: icon}
   }
 }
 
 export function setVisible(isVisible) {
   return {
-    type: "SET_VISIBLE",
+    type: MESSAGE.SET_VISIBLE,
     payload: isVisible
   }
 }
 
 export function clearMessage() {
   return {
-    type: "CLEAR_MESSAGE"
+    type: MESSAGE.CLEAR_MESSAGE
   }
 }
 

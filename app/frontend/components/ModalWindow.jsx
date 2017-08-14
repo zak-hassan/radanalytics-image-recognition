@@ -3,6 +3,18 @@ import Modal from 'react-modal';
 import PropTypes from 'prop-types';
 
 class ModalComponentDialog extends Component{
+  // Ensure that the toggleModal is the same that is passed to
+  // ButtonModal
+  static get propTypes() {
+    return {
+      toggleModal: PropTypes.func.isRequired,
+      isOpen: PropTypes.bool.isRequired,
+      modalTitle: PropTypes.string.isRequired,
+      modalContent: PropTypes.element.isRequired,
+      modalFooter: PropTypes.element,
+    }
+  }
+
   constructor(props){
     super(props);
     this.closeModal = this.closeModal.bind(this);
@@ -50,14 +62,6 @@ class ModalComponentDialog extends Component{
 }
 
 
+
 export default ModalComponentDialog;
 
-// Ensure that the toggleModal is the same that is passed to
-// ButtonModal
-ModalComponentDialog.propTypes = {
-  toggleModal: PropTypes.func.isRequired,
-  isOpen: PropTypes.bool.isRequired,
-  modalTitle: PropTypes.string.isRequired,
-  modalContent: PropTypes.element.isRequired,
-  modalFooter: PropTypes.element,
-};

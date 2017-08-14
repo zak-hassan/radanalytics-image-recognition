@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 class Stats extends Component {
-
   static get propTypes() {
     return {
       numRes: PropTypes.number,
@@ -53,5 +52,6 @@ class Stats extends Component {
     );
   }
 }
+
 
 export default Stats;

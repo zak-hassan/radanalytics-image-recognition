@@ -1,36 +1,24 @@
 import $ from "jquery";
 import { setMessage, setMessageWithTimeout } from "./messageActions";
+import { CLASSIFIER } from "./constants"
 
 export function setUploadFile(file) {
   return {
-    type: "SET_FILE",
+    type: CLASSIFIER.SET_FILE,
     payload: file
-  }
-}
-
-export function clearFile() {
-  return {
-      type: "CLEAR_FILE"
   }
 }
 
 export function setClassification(classification) {
   return {
-    type: "SET_CLASSIFICATION",
+    type: CLASSIFIER.SET_CLASSIFICATION,
     payload: classification
-  }
-}
-
-export function setFeedback(feedback) {
-  return {
-    type: "SET_FEEDBACK",
-    payload: feedback
   }
 }
 
 export function clearClassification() {
   return {
-    type: "CLEAR_CLASSIFICATION"
+    type: CLASSIFIER.CLEAR_CLASSIFICATION
   }
 }
 
@@ -62,14 +50,14 @@ export function setImageClassification(file) {
 
 export function setSelectedOption(selection){
   return {
-    type: "SET_OPTION",
+    type: CLASSIFIER.SET_OPTION,
     payload: selection
   }
 }
 
 export function setExecutingSave(state){
   return {
-    type: "SET_EXECUTING_SAVE",
+    type: CLASSIFIER.SET_EXECUTING_SAVE,
     payload: state
   }
 }

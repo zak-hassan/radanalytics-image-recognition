@@ -3,7 +3,6 @@ import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 import PropTypes from "prop-types";
 
 class ResultHistory extends Component {
-
   static get propTypes() {
     return {
       results: PropTypes.array,
@@ -37,5 +36,6 @@ class ResultHistory extends Component {
     );
   }
 }
+
 
 export default ResultHistory;

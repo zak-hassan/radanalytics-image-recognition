@@ -7,8 +7,7 @@ import ResultHistory from "../components/ResultHistory.jsx";
 import { getStats } from "../actions/statsActions";
 
 class StatsView extends Component {
-
-  static get propTypes() {
+    static get propTypes() {
     return {
       numRes: PropTypes.number,
       timeTaken: PropTypes.string,
@@ -29,7 +28,7 @@ class StatsView extends Component {
 
   render() {
     return (
-      <div className="StatsView">
+      <div className="StatsView fader">
         <Stats numRes={this.props.numRes} timeTaken={this.props.timeTaken} dateLastRes={this.props.dateLastRes}/>
         <ResultHistory results={this.props.results}/>
       </div>

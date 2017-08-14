@@ -9,7 +9,7 @@ export function toggleConfigModal(){
 
 export function toggleClassModal(){
   return {
-    type: "TOGGLE_MODAL",
+    type: MODAL.TOGGLE_MODAL,
     payload: "class_modal"
   };
 }

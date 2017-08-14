@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import Dropzone from "react-dropzone";
 
 class ImageUploader extends Component {
-
   static get propTypes() {
     return {
       file: PropTypes.object,
