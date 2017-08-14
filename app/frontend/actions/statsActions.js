@@ -17,6 +17,13 @@ export function setLastResultTimeTaken(time) {
   }
 }
 
+export function setModalDownloadTime(time) {
+  return {
+    type: STATS.SET_MODAL_DOWNLOAD_TIME,
+    payload : time
+  }
+}
+
 export function setNumResults(num) {
   return {
     type: STATS.SET_NUM_RES,
@@ -41,6 +48,7 @@ export function getStats() {
       success: function(result) {
         dispatch(setLastResultTimeTaken(result.time_taken));
         dispatch(setLastResultDate(result.last_transaction));
+        dispatch(setModalDownloadTime(result.modal_download_time));
         dispatch(setNumResults(result.num_results));
         dispatch(setResultHistory(result.results));
       },
