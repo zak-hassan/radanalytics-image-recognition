@@ -10,7 +10,6 @@ import {
   setExecutingSaveStatus,
   setLoadingFormStatus,
   resetConfig,
-
 } from '../actions/configActions'
 import ButtonComponent from '../components/ButtonModal.jsx';
 import {toggleConfigModal} from '../actions/modalActions';
@@ -19,6 +18,26 @@ import ModalComponentDialog from '../components/ModalWindow.jsx'
 import { setMessage, setMessageWithTimeout } from "../actions/messageActions"
 
 class ConfigView extends Component {
+  static get propTypes() {
+    return {
+      configValues: PropTypes.object,
+      setConfigValues: PropTypes.func,
+      setInitConfig: PropTypes.func,
+      setSaveConfig: PropTypes.func,
+      setResetConfig: PropTypes.func,
+      setInputStatus: PropTypes.func,
+      setExecutingSaveStatus: PropTypes.func,
+      setLoadingFormStatus: PropTypes.func,
+      executingSave: PropTypes.bool,
+      loadingForm: PropTypes.bool,
+      futureValues: PropTypes.object,
+      toggleModal: PropTypes.func,
+      modalState: PropTypes.bool,
+      resetConfig: PropTypes.func,
+      setMessageWithTimeout: PropTypes.func,
+      setMessage: PropTypes.func,
+    }
+  }
 
   constructor(){
     super();
@@ -138,9 +157,11 @@ class ConfigView extends Component {
   createBody(configRows){
     if(this.props.loadingForm){
       /* While the GET request to server is pending, show spinner. */
-      return <div className="card-pf-footer fader aligner">
-        <div className="spinner"/>
-      </div>
+      return (
+        <div className="card-pf-footer fader aligner">
+          <div className="spinner"/>
+        </div>
+      )
     } else {
       return <div className="card-pf-footer fader">
         <form className="form-horizontal">
@@ -218,25 +239,6 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(setMessage(msg, type))
     }
   }
-};
-
-ConfigView.propTypes = {
-  configValues: PropTypes.object,
-  setConfigValues: PropTypes.func,
-  setInitConfig: PropTypes.func,
-  setSaveConfig: PropTypes.func,
-  setResetConfig: PropTypes.func,
-  setInputStatus: PropTypes.func,
-  setExecutingSaveStatus: PropTypes.func,
-  setLoadingFormStatus: PropTypes.func,
-  executingSave: PropTypes.bool,
-  loadingForm: PropTypes.bool,
-  futureValues: PropTypes.object,
-  toggleModal: PropTypes.func,
-  modalState: PropTypes.bool,
-  resetConfig: PropTypes.func,
-  setMessageWithTimeout: PropTypes.func,
-  setMessage: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConfigView)

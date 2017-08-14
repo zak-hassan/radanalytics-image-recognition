@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-
 import ImageUploader from "../components/ImageUploader.jsx";
 import Classifier from "../components/Classifier.jsx";
 import { setUploadFile, setImageClassification, setSelectedOption, setExecutingSave } from "../actions/imageClassifierActions";
@@ -9,12 +8,29 @@ import { setMessageWithTimeout } from "../actions/messageActions";
 import { toggleClassModal } from '../actions/modalActions';
 
 class ImageClassifierView extends Component {
+  static get propTypes() {
+    return {
+      file: PropTypes.object,
+      classification: PropTypes.array,
+      setUploadFile: PropTypes.func,
+      setImageClassification: PropTypes.func,
+      setMessageTimeout: PropTypes.func,
+      toggleModal: PropTypes.func,
+      modalState: PropTypes.bool,
+      setSelectedOption: PropTypes.func,
+      selectedOption: PropTypes.number,
+      setMessageWithTimeout: PropTypes.func,
+      setMessage: PropTypes.func,
+      executingSave: PropTypes.bool,
+      setExecutingSave: PropTypes.func,
+    }
+  }
 
   render() {
     return (
       <div className="ImageClassifierView">
         <div className="container container-cards-pf">
-            <div className="cards col-xs-12 col-md-8">
+            <div className="cards col-xs-12 col-md-8 fader">
               <ImageUploader file={this.props.file}
                 setUploadFile={this.props.setUploadFile}
                 setMessageTimeout={this.props.setMessageTimeout}/>
@@ -72,22 +88,5 @@ const mapDispatchToProps = (dispatch) => {
     },
   }
 };
-
-ImageClassifierView.propTypes = {
-  file: PropTypes.object,
-  classification: PropTypes.array,
-  setUploadFile: PropTypes.func,
-  setImageClassification: PropTypes.func,
-  setMessageTimeout: PropTypes.func,
-  toggleModal: PropTypes.func,
-  modalState: PropTypes.bool,
-  setSelectedOption: PropTypes.func,
-  selectedOption: PropTypes.number,
-  setMessageWithTimeout: PropTypes.func,
-  setMessage: PropTypes.func,
-  executingSave: PropTypes.bool,
-  setExecutingSave: PropTypes.func,
-};
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(ImageClassifierView);

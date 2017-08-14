@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import ButtonComponent from "../components/ButtonModal.jsx";
 
 class FeedbackLinkModal extends Component{
-
   static get propTypes() {
     return {
       toggleModal: PropTypes.func,

@@ -16,7 +16,6 @@ import StatsView from "./StatsView.jsx";
 import { clearMessage } from "../actions/messageActions";
 
 class App extends Component {
-
   static get propTypes() {
     return {
       message: PropTypes.string,
@@ -29,23 +28,23 @@ class App extends Component {
 
   render() {
     return (
-        <Router>
-          <div className="app">
-            <Navbar/>
-            <Message message={this.props.message} messageType={this.props.messageType}
-              icon={this.props.icon} visible={this.props.visible}
-              clearMessage={this.props.clearMessage}/>
-            <Switch>
-               <Route exact path="/" component={ImageClassifierView}/>
-            </Switch>
-            <Switch>
-               <Route exact path="/stats" component={StatsView}/>
-            </Switch>
-            <Switch>
-               <Route exact path="/config" component={ConfigView}/>
-            </Switch>
-          </div>
-        </Router>
+      <Router>
+        <div className="app">
+          <Navbar/>
+          <Message message={this.props.message} messageType={this.props.messageType}
+                   icon={this.props.icon} visible={this.props.visible}
+                   clearMessage={this.props.clearMessage}/>
+          <Switch>
+            <Route exact path="/" component={ImageClassifierView}/>
+          </Switch>
+          <Switch>
+            <Route exact path="/stats" component={StatsView}/>
+          </Switch>
+          <Switch>
+            <Route exact path="/config" component={ConfigView}/>
+          </Switch>
+        </div>
+      </Router>
     );
   }
 }
@@ -66,5 +65,6 @@ const mapDispatchToProps = (dispatch) => {
       }
   }
 };
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

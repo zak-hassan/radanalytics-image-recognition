@@ -1,30 +1,32 @@
+import { STATS } from "./constants"
+
 import $ from "jquery";
 import { setMessage } from "./messageActions";
 
 export function setLastResultDate(date) {
   return {
-    type:"SET_LAST_RES_DATE",
+    type: STATS.SET_LAST_RES_DATE,
     payload: date
   }
 }
 
 export function setLastResultTimeTaken(time) {
   return {
-    type:"SET_LAST_RES_TIME_TAKEN",
+    type: STATS.SET_LAST_RES_TIME_TAKEN,
     payload: time
   }
 }
 
 export function setNumResults(num) {
   return {
-    type:"SET_NUM_RES",
+    type: STATS.SET_NUM_RES,
     payload: num
   }
 }
 
 export function setResultHistory(results) {
   return {
-    type: "SET_RES_HIS",
+    type: STATS.SET_RES_HIS,
     payload: results
   }
 }

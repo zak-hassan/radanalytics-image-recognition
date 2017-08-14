@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import ReactCSSTransitionReplace from "react-css-transition-replace";
 
 class Message extends Component {
-
   static get propTypes() {
     return {
       message: PropTypes.string,
