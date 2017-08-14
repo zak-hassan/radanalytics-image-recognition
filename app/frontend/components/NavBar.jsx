@@ -10,7 +10,7 @@ class Navbar extends Component {
       <nav className="navbar navbar-default navbar-pf" role="navigation">
         <div className="navbar-header">
           <Link className="navbar-brand" to="/">
-            <img alt="Image Classifier"/>
+            <img alt="RecognEyes"/>
           </Link>
         </div>
         <ul className="nav navbar-nav navbar-primary">
