@@ -37,3 +37,11 @@ To run JDG you need to execute the following:
 ```bash
 ./run-jdg-docker.sh
 ```
+
+To run the image recognition application:
+
+```bash
+
+docker run   -p 8081:8081  docker.io/zmhassan/tensorflow-image-recognition
+
+```
