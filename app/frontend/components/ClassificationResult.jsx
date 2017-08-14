@@ -2,6 +2,13 @@ import React, { Component } from "react"
 import PropTypes from "prop-types"
 
 class ClassificationResult extends Component {
+  static get propTypes() {
+    return {
+      value: PropTypes.number,
+      _class: PropTypes.string
+    }
+  }
+
   render() {
 
     let barWidth = this.props.value + "%";
@@ -20,10 +27,5 @@ class ClassificationResult extends Component {
     )
   }
 }
-
-ClassificationResult.propTypes = {
-  value: PropTypes.number,
-  _class: PropTypes.string
-};
 
 export default ClassificationResult
