@@ -5,6 +5,22 @@ import ClassificationFeedback from "../components/ClassificationFeedback.jsx";
 import ButtonComponent from '../components/ButtonModal.jsx';
 
 class Classifier extends Component {
+  static get propTypes() {
+    return {
+      classification: PropTypes.array,
+      file: PropTypes.object,
+      setImageClassification: PropTypes.func,
+      toggleModal: PropTypes.func,
+      modalState: PropTypes.bool,
+      selectedOption: PropTypes.number,
+      setSelectedOption: PropTypes.func,
+      setMessageTimeout: PropTypes.func,
+      setMessageWithTimeout: PropTypes.func,
+      setMessage: PropTypes.func,
+      executingSave: PropTypes.bool,
+      setExecutingSave: PropTypes.func,
+    }
+  }
 
   classify(file) {
     //set classification
@@ -88,19 +104,5 @@ class Classifier extends Component {
   }
 }
 
-Classifier.propTypes = {
-  classification: PropTypes.array,
-  file: PropTypes.object,
-  setImageClassification: PropTypes.func,
-  toggleModal: PropTypes.func,
-  modalState: PropTypes.bool,
-  selectedOption: PropTypes.number,
-  setSelectedOption: PropTypes.func,
-  setMessageTimeout: PropTypes.func,
-  setMessageWithTimeout: PropTypes.func,
-  setMessage: PropTypes.func,
-  executingSave: PropTypes.bool,
-  setExecutingSave: PropTypes.func,
-};
 
 export default Classifier;

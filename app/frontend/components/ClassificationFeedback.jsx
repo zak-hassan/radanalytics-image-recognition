@@ -4,6 +4,20 @@ import PropTypes from "prop-types";
 import $ from 'jquery'
 
 class ClassificationFeedback extends Component {
+  static get propTypes() {
+    return {
+      imageFile: PropTypes.object,
+      toggleModal: PropTypes.func,
+      modalState: PropTypes.bool,
+      setSelectedOption: PropTypes.func,
+      selectedOption: PropTypes.number,
+      setMessageWithTimeout: PropTypes.func,
+      setMessage: PropTypes.func,
+      executingSave: PropTypes.bool,
+      setExecutingSave: PropTypes.func,
+    }
+  }
+
   constructor(){
     super();
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -95,17 +109,6 @@ class ClassificationFeedback extends Component {
   }
 }
 
-ClassificationFeedback.propTypes = {
-  imageFile: PropTypes.object,
-  toggleModal: PropTypes.func,
-  modalState: PropTypes.bool,
-  setSelectedOption: PropTypes.func,
-  selectedOption: PropTypes.number,
-  setMessageWithTimeout: PropTypes.func,
-  setMessage: PropTypes.func,
-  executingSave: PropTypes.bool,
-  setExecutingSave: PropTypes.func,
-};
 
 export default ClassificationFeedback;
 
