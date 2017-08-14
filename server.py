@@ -3,6 +3,7 @@ from flask import Flask
 from werkzeug.utils import find_modules, import_string
 from os.path import join, abspath, dirname
 from os import environ
+from flask_prometheus import monitor
 
 # Can change to parameter/args
 UPLOAD_FOLDER = '.rad-img-recog'
@@ -49,4 +50,5 @@ def register_blueprints(flask_app):
 if __name__ == "__main__":
     app = create_app()
     port = int(environ.get("PORT", 8081))
+    monitor(app, port=18081)
     app.run(host='0.0.0.0', port=port)
