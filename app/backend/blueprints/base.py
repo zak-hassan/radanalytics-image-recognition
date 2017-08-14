@@ -170,7 +170,10 @@ def img_recognize():
     scores = model.get_scores(pred=pred, k=5)
     model.close()
 
-    remote_cache = RemoteCache()
+    #Getting environment variable or using default localhost
+    hostname=os.getenv('JDG_HOSTNAME','localhost')
+
+    remote_cache = RemoteCache(host=hostname)
     time = datetime.datetime.now().strftime("%B-%d-%Y-%I:%M%p")
     key= filename + time
     remote_cache.put(key, json.dumps({'pred':scores, 'timestamp': time , 'filename': filename}) )

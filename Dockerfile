@@ -104,6 +104,8 @@ RUN pip install -r requirements.txt \
 
 RUN chmod +x tini  start.sh
 
+RUN chmod -R 777 /opt/imagerecognize/.rad-img-recog
+
 ENV HOME /home/$NB_USER
 USER $NB_UID
 # Make the default PWD somewhere that the user can write. This is
