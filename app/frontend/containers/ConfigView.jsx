@@ -1,15 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
-import $ from 'jquery'
 import {
   setConfigValues,
-  setInitConfig,
-  saveConfig,
   setInputStatus,
-  setExecutingSaveStatus,
-  setLoadingFormStatus,
   resetConfig,
+  handleConfigPOST,
+  handleConfigGET,
 } from '../actions/configActions'
 import ButtonComponent from '../components/ButtonModal.jsx';
 import {toggleConfigModal} from '../actions/modalActions';
@@ -22,68 +19,30 @@ class ConfigView extends Component {
     return {
       configValues: PropTypes.object,
       setConfigValues: PropTypes.func,
-      setInitConfig: PropTypes.func,
-      setSaveConfig: PropTypes.func,
-      setResetConfig: PropTypes.func,
       setInputStatus: PropTypes.func,
-      setExecutingSaveStatus: PropTypes.func,
-      setLoadingFormStatus: PropTypes.func,
       executingSave: PropTypes.bool,
       loadingForm: PropTypes.bool,
       futureValues: PropTypes.object,
       toggleModal: PropTypes.func,
       modalState: PropTypes.bool,
       resetConfig: PropTypes.func,
-      setMessageWithTimeout: PropTypes.func,
-      setMessage: PropTypes.func,
+      handleConfigGET: PropTypes.func,
+      handleConfigPOST: PropTypes.func,
     }
   }
 
   constructor(){
     super();
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleReset = this.handleReset.bind(this)
   }
 
   componentWillMount(){
-    const url = '/api/v1/settings';
-    this.props.setLoadingFormStatus(true);
-    $.ajax({
-      type: 'GET',
-      url: url,
-      dataType: 'json',
-      success: function(result){
-        this.props.setInitConfig(result);
-        this.props.setLoadingFormStatus(false);
-      }.bind(this),
-      error: function(){
-        this.props.setLoadingFormStatus(false);
-        this.props.setMessage('Could not successfully retrieve information from server', "danger")
-      }.bind(this),
-    });
+    this.props.handleConfigGET();
   }
 
   handleSubmit(event){
-    event.preventDefault();
-    const url = '/api/v1/settings';
-    let payLoad = {config: this.props.futureValues};
-    this.props.setExecutingSaveStatus(true);
-    $.ajax({
-      type: 'POST',
-      url: url,
-      data: JSON.stringify(payLoad),
-      dataType: 'json',
-      contentType: 'application/json',
-      success: function (result) {
-        this.props.setExecutingSaveStatus(false);
-        this.props.setSaveConfig(result);
-        this.props.setMessageWithTimeout('Configuration Updated Successfully!', "success");
-      }.bind(this),
-      error: function (){
-        this.props.setExecutingSaveStatus(false);
-        this.props.setMessage('Could not successfully send information to server', "danger");
-      }.bind(this)
-    });
+    this.props.handleConfigPOST(event, this.props.futureValues);
   }
 
   handleReset(){
@@ -211,20 +170,8 @@ const mapDispatchToProps = (dispatch) => {
     setConfigValues: (e) => {
       dispatch(setConfigValues(e))
     },
-    setInitConfig: (result) => {
-      dispatch(setInitConfig(result))
-    },
-    setSaveConfig: (result) => {
-      dispatch(saveConfig(result))
-    },
     setInputStatus: (key, status) => {
       dispatch(setInputStatus(key, status))
-    },
-    setExecutingSaveStatus: (status) => {
-      dispatch(setExecutingSaveStatus(status))
-    },
-    setLoadingFormStatus: (status) => {
-      dispatch(setLoadingFormStatus(status))
     },
     toggleModal: () => {
       dispatch(toggleConfigModal())
@@ -237,7 +184,13 @@ const mapDispatchToProps = (dispatch) => {
     },
     setMessage: (msg, type) => {
       dispatch(setMessage(msg, type))
-    }
+    },
+    handleConfigGET: () => {
+      dispatch(handleConfigGET())
+    },
+    handleConfigPOST: (event, futureValues) => {
+      dispatch(handleConfigPOST(event, futureValues))
+    },
   }
 };
 
