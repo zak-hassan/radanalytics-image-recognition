@@ -6,6 +6,7 @@ import messageReducer from "./reducers/messageReducer";
 import configReducer from "./reducers/configReducer";
 import statsReducer from "./reducers/statsReducer";
 import modalReducer from "./reducers/modalReducer";
+import navReducer from "./reducers/navReducer";
 
 export default createStore(
   combineReducers({
@@ -13,7 +14,8 @@ export default createStore(
     imageClassificationReducer,
     messageReducer,
     configReducer,
-    statsReducer}),
+    statsReducer,
+    navReducer}),
   applyMiddleware(thunk)
 
 );
