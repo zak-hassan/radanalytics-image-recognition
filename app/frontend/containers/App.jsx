@@ -14,6 +14,7 @@ import ConfigView from "./ConfigView.jsx";
 import StatsView from "./StatsView.jsx";
 
 import { clearMessage } from "../actions/messageActions";
+import { setRoute } from "../actions/navActions";
 
 class App extends Component {
 
@@ -23,7 +24,9 @@ class App extends Component {
       messageType: PropTypes.string,
       icon: PropTypes.string,
       visible: PropTypes.bool,
-      clearMessage: PropTypes.func
+      clearMessage: PropTypes.func,
+      setRoute: PropTypes.func,
+      activeRoute: PropTypes.string
     }
   }
 
@@ -31,7 +34,7 @@ class App extends Component {
     return (
         <Router>
           <div className="app">
-            <Navbar/>
+            <Navbar setRoute={this.props.setRoute} activeRoute={this.props.activeRoute}/>
             <Message message={this.props.message} messageType={this.props.messageType}
               icon={this.props.icon} visible={this.props.visible}
               clearMessage={this.props.clearMessage}/>
@@ -55,7 +58,8 @@ const mapStateToProps = (state) => {
     message: state.messageReducer.message,
     messageType: state.messageReducer.messageType,
     icon: state.messageReducer.icon,
-    visible: state.messageReducer.visible
+    visible: state.messageReducer.visible,
+    activeRoute: state.navReducer.activeRoute
   }
 };
 
@@ -63,6 +67,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
       clearMessage: () => {
           dispatch(clearMessage())
+      },
+      setRoute: (route) => {
+          dispatch(setRoute(route))
       }
   }
 };

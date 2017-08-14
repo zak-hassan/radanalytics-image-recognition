@@ -11,3 +11,7 @@ export const CONFIG = {
 export const MODAL = {
     TOGGLE_MODAL: "TOGGLE_MODAL",
 };
+
+export const NAV = {
+    SET_ROUTE: "SET_ROUTE",
+};

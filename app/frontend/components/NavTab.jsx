@@ -7,27 +7,25 @@ class NavTab extends React.Component {
   static get propTypes() {
     return {
       to: PropTypes.string,
+      activeRoute: PropTypes.string,
       children: PropTypes.string,
+      setRoute: PropTypes.func
     }
   }
 
   render() {
-      var isActive = this.context.router.route.location.pathname === this.props.to;
+      var isActive = this.props.activeRoute === this.props.to;
       var className = isActive ? "active" : "";
 
       return (
-        <li className={className}>
-          <Link {...this.props}>
+        <li className={className} onClick={() => this.props.setRoute(this.props.to)}>
+          <Link to={this.props.to}>
               {this.props.children}
           </Link>
         </li>
       );
   }
 }
-
-NavTab.contextTypes = {
-    router: PropTypes.object
-};
 
 export default NavTab;
 
