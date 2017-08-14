@@ -10,7 +10,7 @@ class ResultHistory extends Component {
   }
 
   imageFormatter(filename) {
-    return "<img className='img-thumb' src='/api/v1/images/"+filename+"'/>";
+    return <img className="img-thumb" src={"/api/v1/images/"+filename}/>;
   }
 
   render() {
