@@ -1,7 +1,15 @@
 import { STATS } from "../actions/constants"
 
+const initialState = {
+  numRes: null,
+  timeTaken:null,
+  dateLastRes:null,
+  resultsHistory:null,
+  images:null,
+  timeToDownloadModel: null
+};
 
-const statsReducer = (state = {numRes: null, timeTaken:null, dateLastRes:null, resultsHistory:null, images:null}, action) => {
+const statsReducer = (state = initialState, action) => {
   switch (action.type) {
     case STATS.SET_LAST_RES_DATE:
       state = {
@@ -25,6 +33,12 @@ const statsReducer = (state = {numRes: null, timeTaken:null, dateLastRes:null, r
       state = {
         ...state,
         resultsHistory: action.payload
+      };
+      break
+    case STATS.SET_MODAL_DOWNLOAD_TIME:
+      state = {
+        ...state,
+        timeToDownloadModel: action.payload
       };
       break
   }

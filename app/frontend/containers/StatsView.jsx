@@ -13,6 +13,7 @@ class StatsView extends Component {
       timeTaken: PropTypes.string,
       dateLastRes: PropTypes.string,
       getStatsData: PropTypes.func,
+      timeToDownloadModel: PropTypes.string,
       results: PropTypes.array,
     }
   }
@@ -29,7 +30,12 @@ class StatsView extends Component {
   render() {
     return (
       <div className="StatsView fader">
-        <Stats numRes={this.props.numRes} timeTaken={this.props.timeTaken} dateLastRes={this.props.dateLastRes}/>
+        <Stats
+         numRes={this.props.numRes}
+         timeTaken={this.props.timeTaken}
+         dateLastRes={this.props.dateLastRes}
+         timeToDownloadModel={this.props.timeToDownloadModel}
+        />
         <ResultHistory results={this.props.results}/>
       </div>
     );
@@ -42,6 +48,7 @@ const mapStateToProps = (state) => {
     timeTaken: state.statsReducer.timeTaken,
     dateLastRes: state.statsReducer.dateLastRes,
     results: state.statsReducer.resultsHistory,
+    timeToDownloadModel: state.statsReducer.timeToDownloadModel
   }
 };
 

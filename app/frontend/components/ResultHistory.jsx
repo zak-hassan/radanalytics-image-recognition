@@ -29,6 +29,7 @@ class ResultHistory extends Component {
                 <TableHeaderColumn dataAlign="center" dataSort={true} dataField="filename" isKey={true}>Filename</TableHeaderColumn>
                 <TableHeaderColumn dataAlign="center" dataSort={true} dataField="classification">Classification</TableHeaderColumn>
                 <TableHeaderColumn dataAlign="center" dataSort={true} dataField="percentage">%</TableHeaderColumn>
+                <TableHeaderColumn dataAlign="center" dataSort={true} dataField="classification_time">Time to classify</TableHeaderColumn>
               </BootstrapTable>
             </div>
          </div>}
@@ -36,6 +37,5 @@ class ResultHistory extends Component {
     );
   }
 }
-
 
 export default ResultHistory;
