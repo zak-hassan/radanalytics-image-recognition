@@ -1,4 +1,6 @@
 import { CONFIG } from "./constants"
+import $ from "jquery";
+import { setMessage, setMessageWithTimeout } from "./messageActions";
 
 export function setConfigValues (e) {
   e.preventDefault();
@@ -50,4 +52,51 @@ export function resetConfig(){
   return {
     type: CONFIG.SET_RESET_CONFIG,
   }
+}
+
+export function handleConfigGET(){
+  const url = '/api/v1/settings';
+  return (dispatch) => {
+    dispatch(setLoadingFormStatus(true));
+    $.ajax({
+      type: 'GET',
+      url: url,
+      dataType: 'json',
+      success: function(result){
+        dispatch(setInitConfig(result));
+        dispatch(setLoadingFormStatus(false));
+      }.bind(this),
+      error: function(){
+        dispatch(setLoadingFormStatus(false));
+        dispatch(setMessage('Could not successfully retrieve information from server', "danger"));
+      }.bind(this),
+    });
+  };
+
+}
+
+export function handleConfigPOST(event, futureValues){
+    event.preventDefault();
+    const url = '/api/v1/settings';
+
+    return(dispatch) => {
+      let payLoad = {config: futureValues};
+      dispatch(setExecutingSaveStatus(true));
+      $.ajax({
+        type: 'POST',
+        url: url,
+        data: JSON.stringify(payLoad),
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (result) {
+          dispatch(setExecutingSaveStatus(false));
+          dispatch(saveConfig(result));
+          dispatch(setMessageWithTimeout('Configuration Updated Successfully!', "success"));
+        }.bind(this),
+        error: function () {
+          dispatch(setExecutingSaveStatus(false));
+          dispatch(setMessage('Could not successfully send information to server', "danger"));
+        }.bind(this)
+      })
+    }
 }
