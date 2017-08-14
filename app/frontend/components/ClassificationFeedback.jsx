@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import ModalComponentDialog from '../components/ModalWindow.jsx'
 import PropTypes from "prop-types";
-import $ from 'jquery'
 
 class ClassificationFeedback extends Component {
   static get propTypes() {
@@ -11,10 +10,7 @@ class ClassificationFeedback extends Component {
       modalState: PropTypes.bool,
       setSelectedOption: PropTypes.func,
       selectedOption: PropTypes.number,
-      setMessageWithTimeout: PropTypes.func,
-      setMessage: PropTypes.func,
-      executingSave: PropTypes.bool,
-      setExecutingSave: PropTypes.func,
+      handleFeedBackPOST: PropTypes.func,
     }
   }
 
@@ -25,30 +21,7 @@ class ClassificationFeedback extends Component {
   }
 
   handleFormSubmit(e){
-    e.preventDefault();
-    // Do a post request then close mdoal
-    let formData = new FormData();
-    formData.append("file", this.props.imageFile);
-    formData.append("option", this.props.selectedOption);
-    const url = '/api/v1/stats';
-    this.props.setExecutingSave(true);
-    this.props.toggleModal();
-    $.ajax({
-      type: 'POST',
-      url: url,
-      data: formData,
-      contentType: false,
-      processData: false,
-      success: function () {
-        this.props.setExecutingSave(false);
-        this.props.setMessageWithTimeout('Feedback stored successfully, thank you!', "success");
-      }.bind(this),
-      error: function (){
-        this.props.setExecutingSave(false);
-        this.props.setMessage('Could not successfully send information to server', "danger");
-      }.bind(this)
-    });
-
+    this.props.handleFeedBackPOST(e, this.props.selectedOption, this.props.imageFile);
   }
 
   handleOptionChange(e){
@@ -108,7 +81,6 @@ class ClassificationFeedback extends Component {
     );
   }
 }
-
 
 export default ClassificationFeedback;
 

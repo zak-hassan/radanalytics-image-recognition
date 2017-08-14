@@ -104,3 +104,10 @@
     margin-right: 8px;
 }
 
+.no-padding{
+    padding: 0;
+}
+
+.pf-blue{
+    color: #0088ce;
+}

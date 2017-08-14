@@ -3,7 +3,13 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import ImageUploader from "../components/ImageUploader.jsx";
 import Classifier from "../components/Classifier.jsx";
-import { setUploadFile, setImageClassification, setSelectedOption, setExecutingSave } from "../actions/imageClassifierActions";
+import {
+  setUploadFile,
+  setImageClassification,
+  setSelectedOption,
+  setExecutingSave,
+  handleFeedBackPOST
+} from "../actions/imageClassifierActions";
 import { setMessageWithTimeout } from "../actions/messageActions";
 import { toggleClassModal } from '../actions/modalActions';
 
@@ -23,6 +29,7 @@ class ImageClassifierView extends Component {
       setMessage: PropTypes.func,
       executingSave: PropTypes.bool,
       setExecutingSave: PropTypes.func,
+      handleFeedBackPOST: PropTypes.func,
     }
   }
 
@@ -43,8 +50,7 @@ class ImageClassifierView extends Component {
                 selectedOption={this.props.selectedOption}
                 setExecutingSave={this.props.setExecutingSave}
                 executingSave={this.props.executingSave}
-                setMessageTimeout={this.props.setMessageTimeout}
-                setMessageWithTimeout={this.props.setMessageWithTimeout}
+                handleFeedBackPOST={this.props.handleFeedBackPOST}
               />
             </div>
         </div>
@@ -86,6 +92,9 @@ const mapDispatchToProps = (dispatch) => {
     setExecutingSave: (selection) => {
       dispatch(setExecutingSave(selection))
     },
+    handleFeedBackPOST: (event, selectedOption, imageFile) => {
+      dispatch(handleFeedBackPOST(event, selectedOption, imageFile))
+    }
   }
 };
 
