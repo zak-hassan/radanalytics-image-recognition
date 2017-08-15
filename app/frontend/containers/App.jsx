@@ -7,7 +7,7 @@ import {
   Switch
 } from "react-router-dom";
 
-import Navbar from "../components/NavBar.jsx";
+import NavBar from "../components/NavBar.jsx";
 import Message from "../components/Message.jsx";
 import ImageClassifierView from "./ImageClassifierView.jsx";
 import ConfigView from "./ConfigView.jsx";
@@ -31,7 +31,7 @@ class App extends Component {
     return (
         <Router>
           <div className="app">
-            <Navbar/>
+            <NavBar/>
             <Message message={this.props.message} messageType={this.props.messageType}
               icon={this.props.icon} visible={this.props.visible}
               clearMessage={this.props.clearMessage}/>
