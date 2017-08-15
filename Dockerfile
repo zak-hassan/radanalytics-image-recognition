@@ -79,11 +79,11 @@ RUN echo 'PS1="\u@\h:\w\\$ \[$(tput sgr0)\]"' >> /root/.bashrc \
 ENV PATH /opt/conda/bin:$PATH
 
 # TensorBoard # IPython
-EXPOSE 6006 8888
+EXPOSE 6006 8888 8081 18081
 
-LABEL io.k8s.description="Tensorflow Jupyter Notebook." \
-      io.k8s.display-name="Tensorflow Jupyter Notebook." \
-      io.openshift.expose-services="8888:http,6006:http"
+LABEL io.k8s.description="Tensorflow Image Recognition." \
+      io.k8s.display-name="Tensorflow Image Recognition." \
+      io.openshift.expose-services="8888:http,6006:http,8081:http,18081:http"
 
 # ADD start.sh /start.sh
 # ADD tensorflow_model_server /tf/tensorflow_model_server
