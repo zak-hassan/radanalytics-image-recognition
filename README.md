@@ -16,7 +16,7 @@ npm run build
 
 To start the app
 ```bash
-python app.py
+python server.py
 ```
 
 The webui is now accessible from `0.0.0.0:8081`
@@ -45,3 +45,7 @@ To run the image recognition application:
 docker run   -p 8081:8081  docker.io/zmhassan/tensorflow-image-recognition
 
 ```
+
+# Prometheus endpoint
+
+The prometheus endpoint can be access via port 18081
