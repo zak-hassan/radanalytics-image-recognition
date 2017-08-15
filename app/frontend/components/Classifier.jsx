@@ -14,11 +14,8 @@ class Classifier extends Component {
       modalState: PropTypes.bool,
       selectedOption: PropTypes.number,
       setSelectedOption: PropTypes.func,
-      setMessageTimeout: PropTypes.func,
-      setMessageWithTimeout: PropTypes.func,
-      setMessage: PropTypes.func,
       executingSave: PropTypes.bool,
-      setExecutingSave: PropTypes.func,
+      handleFeedBackPOST: PropTypes.func,
     }
   }
 
@@ -35,69 +32,84 @@ class Classifier extends Component {
     }
   }
 
-  createFooter(){
-    /*  Spinner for the pending POST request. */
-    let buttonSpinner = null;
-
-    let aligner = "";
-    if(this.props.executingSave) {
-      aligner = "aligner";
-      buttonSpinner = <div className="spinner spinner-inline config-save-spinner"/>
-    }
-
-    let link = <div className={aligner}><a>Classification feedback</a>{buttonSpinner}</div>;
-    return (
-      <div className="card-pf-footer card-pf fader autowidth">
-        <ButtonComponent toggleModal={this.props.toggleModal} content={link}/>
-      </div>
-    );
-  }
-
-  render() {
-    let classificationResults;
+  createClassificationResults(){
     //classification exists
     if(this.props.classification) {
-      classificationResults = this.props.classification.map(result => {
+      return this.props.classification.map(result => {
         return (
           <ClassificationResult key={result[1]} _class={result[1]} value={result[0]}/>
         );
       })
-    //otherwise, load a spinner
+      //otherwise, load a spinner
     } else {
-      classificationResults =
+      return (
         <div className="aligner">
           <div className="spinner"/>
         </div>
+      )
     }
+  }
+
+  createHeader(){
+
+    // Do not display footer until classification results have been returned
+    if (!this.props.classification){
+      return (
+        <div className="card-pf-heading">
+          <h2 className="card-pf-title">
+            Classification Results
+          </h2>
+        </div>
+      )
+    }
+
+    /*  Spinner for the pending POST request. */
+    let feedBackButton = null;
+    let content = <span className="fa fa-2x fa-comments-o pull-right pf-blue"/>;
+
+    if(this.props.executingSave) {
+      feedBackButton = <div className="spinner spinner-inline config-save-spinner pull-right"/>
+    } else {
+      feedBackButton = <ButtonComponent toggleModal={this.props.toggleModal} content={content}/>
+    }
+
+    return (
+      <div className="card-pf-heading aligner">
+        <div className="col-xs-6 col-sm-6 no-padding">
+          <h4 className="pull-left card-pf-title">
+              Classification Results
+          </h4>
+        </div>
+        <div className="col-xs-6 col-sm-6 no-padding">
+          {feedBackButton}
+        </div>
+        <div className="clearfix"/>
+      </div>)
+  }
+
+  render() {
+    let classificationResults = this.createClassificationResults();
 
     //if a file is uploaded, display results
     return (
       <div className="Classifier">
         {this.props.file &&
         <div className="card-pf card-pf-accented">
-          <div className="card-pf-heading">
-            <h2 className="card-pf-title">
-              Classification Results
-            </h2>
-          </div>
+          {this.createHeader()}
           <div className="card-pf-body">
             {classificationResults}
             {this.props.classification &&
             <div className="resultsFeedback">
               <ClassificationFeedback
+                imageFile={this.props.file}
                 toggleModal={this.props.toggleModal}
                 modalState={this.props.modalState}
                 selectedOption={this.props.selectedOption}
                 setSelectedOption={this.props.setSelectedOption}
-                setExecutingSave={this.props.setExecutingSave}
-                executingSave={this.props.executingSave}
-                setMessageTimeout={this.props.setMessageTimeout}
-                setMessageWithTimeout={this.props.setMessageWithTimeout}
-                imageFile={this.props.file}
+                handleFeedBackPOST={this.props.handleFeedBackPOST}
               />
             </div>}
           </div>
-          {this.createFooter()}
         </div>}
       </div>
     );

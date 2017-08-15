@@ -1,5 +1,6 @@
 import $ from "jquery";
 import { setMessage, setMessageWithTimeout } from "./messageActions";
+import { toggleClassModal as toggleModal } from "./modalActions"
 import { CLASSIFIER } from "./constants"
 
 export function setUploadFile(file) {
@@ -59,5 +60,34 @@ export function setExecutingSave(state){
   return {
     type: CLASSIFIER.SET_EXECUTING_SAVE,
     payload: state
+  }
+}
+
+export function handleFeedBackPOST(e, selectedOption, imageFile){
+  e.preventDefault();
+  // Do a post request then close mdoal
+  let formData = new FormData();
+  formData.append("file", imageFile);
+  formData.append("option", selectedOption);
+  const url = '/api/v1/stats';
+
+  return(dispatch) => {
+    dispatch(setExecutingSave(true));
+    dispatch(toggleModal());
+    $.ajax({
+      type: 'POST',
+      url: url,
+      data: formData,
+      contentType: false,
+      processData: false,
+      success: function () {
+        dispatch(setExecutingSave(false));
+        dispatch(setMessageWithTimeout('Feedback stored successfully, thank you!', "success"));
+      }.bind(this),
+      error: function (){
+        dispatch(setExecutingSave(false));
+        dispatch(setMessage('Could not successfully send information to server', "danger"));
+      }.bind(this)
+    });
   }
 }
