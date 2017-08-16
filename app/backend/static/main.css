@@ -1,56 +1,56 @@
 .dropzone {
-        width: 250px;
-        height: 250px;
-        max-width: 75%;
-        max-height: 75%;
-        border-width: 2px;
-        border-color: #0088ce;
-        border-style: dashed;
-        border-radius: 5px;
-        margin: auto;
+  width: 250px;
+  height: 250px;
+  max-width: 75%;
+  max-height: 75%;
+  border-width: 2px;
+  border-color: #0088ce;
+  border-style: dashed;
+  border-radius: 5px;
+  margin: auto;
 }
 
 .dropzone-image {
-        width: 85%;
-        height: 85%;
-        user-select: none;
+  width: 85%;
+  height: 85%;
+  user-select: none;
 }
 
 .img-thumb {
-        width:75px;
-        height:75px;
+  width:75px;
+  height:75px;
 }
 
 /* Edit Icon */
 .editIcon{
-        padding-left: 6px;
-        opacity: 0.2;
-        cursor: pointer;
+  padding-left: 6px;
+  opacity: 0.2;
+  cursor: pointer;
 }
 
 /* Add pointer icon */
 .pointer{
-    cursor: pointer;
+  cursor: pointer;
 }
 
 /* Input Field */
 .inputField{
-        padding-top: 3px;
+  padding-top: 3px;
 }
 .fader{
-        -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
-        -moz-animation: fadein 1s; /* Firefox < 16 */
-        -ms-animation: fadein 1s; /* Internet Explorer */
-        -o-animation: fadein 1s; /* Opera < 12.1 */
-        animation: fadein 1s;
+  -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 1s; /* Firefox < 16 */
+  -ms-animation: fadein 1s; /* Internet Explorer */
+  -o-animation: fadein 1s; /* Opera < 12.1 */
+  animation: fadein 1s;
 }
 @keyframes fadein {
-    from {
-        opacity:0;
-    }
-    to {
-        opacity:1;
-    }
+  from {
+    opacity:0;
+  }
+  to {
+    opacity:1;
+  }
 }
 
 /* animation for message */
@@ -76,9 +76,33 @@
 }
 
 .cards {
-        margin: 0 auto;
-        float: none;
-        margin-bottom: 10px;
+  margin: 0 auto;
+  float: none;
+  margin-bottom: 10px;
+}
+
+/* css hacks to undo the container styling the react-boostrap navbar is wrapped in */
+
+.navbar > .container {
+  padding-right: unset;
+  padding-left: unset;
+  margin-right: unset;
+  margin-left: unset;
+  width: auto;
+}
+
+.navbar-brand {
+  margin-left: 20px !important;
+}
+
+.container > .navbar-collapse {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.container > .navbar-header {
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 /* Flex code */
@@ -89,19 +113,19 @@
 }
 
 .config-save-spinner{
-    padding-left: 5px;
+  padding-left: 5px;
 }
 
 .wordwrapper{
-    word-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .autowidth{
-    width: auto;
+  width: auto;
 }
 
 .m-r-8{
-    margin-right: 8px;
+  margin-right: 8px;
 }
 
 .no-padding{
