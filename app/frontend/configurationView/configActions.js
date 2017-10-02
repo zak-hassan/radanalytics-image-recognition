@@ -1,6 +1,6 @@
-import { CONFIG } from "./constants"
+import { CONFIG } from "../constants"
 import $ from "jquery";
-import { setMessage, setMessageWithTimeout } from "./messageActions";
+import { setMessage, setMessageWithTimeout } from "../pf-lib/message/messageActions";
 
 export function setConfigValues (e) {
   e.preventDefault();

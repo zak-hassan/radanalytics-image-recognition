@@ -1,7 +1,8 @@
 import $ from "jquery";
-import { setMessage, setMessageWithTimeout } from "./messageActions";
-import { toggleClassModal as toggleModal } from "./modalActions"
-import { CLASSIFIER } from "./constants"
+import { setMessage, setMessageWithTimeout } from "../pf-lib/message/messageActions";
+import { toggleModal } from "../pf-lib/modal/modalActions"
+import { MODALS } from "../configs.jsx"
+import { CLASSIFIER } from "../constants"
 
 export function setUploadFile(file) {
   return {
@@ -73,7 +74,7 @@ export function handleFeedBackPOST(e, selectedOption, imageFile){
 
   return(dispatch) => {
     dispatch(setExecutingSave(true));
-    dispatch(toggleModal());
+    dispatch(toggleModal(MODALS.FEEDBACK_MODAL));
     $.ajax({
       type: 'POST',
       url: url,

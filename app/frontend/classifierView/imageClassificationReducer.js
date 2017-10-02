@@ -1,4 +1,4 @@
-import { CLASSIFIER } from "../actions/constants"
+import { CLASSIFIER } from "../constants"
 
 const initialState = {
   file: null,

@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 import Stats from "../components/Stats.jsx";
 import ResultHistory from "../components/ResultHistory.jsx";
-import { getStats } from "../actions/statsActions";
+import { getStats } from "../statsActions";
 
 class StatsView extends Component {
     static get propTypes() {

@@ -1,13 +1,12 @@
 import React, { Component } from "react";
-import ModalComponentDialog from '../components/ModalWindow.jsx'
+import ModalComponentDialog from '../../pf-lib/modal/containers/ModalWindow.jsx'
 import PropTypes from "prop-types";
+import { MODALS } from '../../configs.jsx';
 
 class ClassificationFeedback extends Component {
   static get propTypes() {
     return {
       imageFile: PropTypes.object,
-      toggleModal: PropTypes.func,
-      modalState: PropTypes.bool,
       setSelectedOption: PropTypes.func,
       selectedOption: PropTypes.number,
       handleFeedBackPOST: PropTypes.func,
@@ -38,7 +37,7 @@ class ClassificationFeedback extends Component {
 
   createModalContent(){
     return (
-      <div className="container">
+      <div>
         <p> Please rate the accuracy of the results! </p>
         <form onSubmit={this.handleFormSubmit}>
           <div className="radio">
@@ -73,8 +72,8 @@ class ClassificationFeedback extends Component {
   render() {
     let content = this.createModalContent();
     return (
-      <ModalComponentDialog isOpen={this.props.modalState}
-        toggleModal={this.props.toggleModal}
+      <ModalComponentDialog
+        mid={MODALS.FEEDBACK_MODAL}
         modalTitle={"Classification Feedback"}
         modalContent={content}
         modalFooter={this.createModalFooter()}/>

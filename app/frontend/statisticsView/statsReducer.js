@@ -1,4 +1,4 @@
-import { STATS } from "../actions/constants"
+import { STATS } from "../constants"
 
 const initialState = {
   numRes: null,

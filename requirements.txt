@@ -5,3 +5,4 @@ infinispan
 datetime
 numpy
 flask_prometheus
+tensorflow

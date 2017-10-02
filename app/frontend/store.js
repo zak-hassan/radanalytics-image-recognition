@@ -1,20 +1,20 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from 'redux-thunk';
 
-import imageClassificationReducer from "./reducers/imageClassificationReducer";
-import messageReducer from "./reducers/messageReducer";
-import configReducer from "./reducers/configReducer";
-import statsReducer from "./reducers/statsReducer";
-import modalReducer from "./reducers/modalReducer";
+import imageClassificationReducer from "./classifierView/imageClassificationReducer";
+import messageReducer from "./pf-lib/message/messageReducer";
+import configReducer from "./configurationView/configReducer";
+import statsReducer from "./statisticsView/statsReducer";
+import modalReducer from "./pf-lib/modal/modalReducer";
 
 export default createStore(
   combineReducers({
     modalReducer,
-    imageClassificationReducer,
     messageReducer,
+    imageClassificationReducer,
     configReducer,
-    statsReducer}),
+    statsReducer
+  }),
   applyMiddleware(thunk)
-
 );
 

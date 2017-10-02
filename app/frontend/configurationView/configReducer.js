@@ -1,4 +1,4 @@
-import { CONFIG } from "../actions/constants"
+import { CONFIG } from "../constants"
 
 const initialState = {
     configValues: {},
