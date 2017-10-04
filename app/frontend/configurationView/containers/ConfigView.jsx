@@ -7,12 +7,12 @@ import {
   resetConfig,
   handleConfigPOST,
   handleConfigGET,
-} from '../actions/configActions'
-import ButtonComponent from '../components/ButtonModal.jsx';
-import {toggleConfigModal} from '../actions/modalActions';
+} from '../configActions'
+import ButtonComponent from '../../pf-lib/modal/containers/ButtonModal.jsx';
 import ConfigRow from '../components/ConfigRow.jsx'
-import ModalComponentDialog from '../components/ModalWindow.jsx'
-import { setMessage, setMessageWithTimeout } from "../actions/messageActions"
+import ModalComponentDialog from '../../pf-lib/modal/containers/ModalWindow.jsx'
+import { setMessage, setMessageWithTimeout } from "../../pf-lib/message/messageActions"
+import { MODALS } from "../../configs.jsx"
 
 class ConfigView extends Component {
   static get propTypes() {
@@ -23,8 +23,6 @@ class ConfigView extends Component {
       executingSave: PropTypes.bool,
       loadingForm: PropTypes.bool,
       futureValues: PropTypes.object,
-      toggleModal: PropTypes.func,
-      modalState: PropTypes.bool,
       resetConfig: PropTypes.func,
       handleConfigGET: PropTypes.func,
       handleConfigPOST: PropTypes.func,
@@ -74,10 +72,9 @@ class ConfigView extends Component {
       </div>
     });
     modalContent = <div>{modalContent}</div>;
-    return <ModalComponentDialog isOpen={this.props.modalState}
-                                  toggleModal={this.props.toggleModal}
-                                  modalTitle={modalTitle}
-                                  modalContent={modalContent}/>
+    return <ModalComponentDialog mid={MODALS.CONFIG_HELP_MODAL}
+                                 modalTitle={modalTitle}
+                                 modalContent={modalContent}/>
   }
 
   createFooter(){
@@ -99,7 +96,7 @@ class ConfigView extends Component {
 
     return <div className="container card-pf-footer card-pf fader autowidth">
       <div className="col-xs-6 col-sm-6">
-        <ButtonComponent toggleModal={this.props.toggleModal}
+        <ButtonComponent mid={MODALS.CONFIG_HELP_MODAL}
                          content={helpButton}/>
         {this.createModalComponent()}
       </div>
@@ -161,7 +158,6 @@ const mapStateToProps = (state) => {
     executingSave: state.configReducer.executingSave,
     futureValues: state.configReducer.futureValues,
     loadingForm: state.configReducer.loadingForm,
-    modalState: state.modalReducer.config_modal
   }
 };
 
@@ -172,9 +168,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     setInputStatus: (key, status) => {
       dispatch(setInputStatus(key, status))
-    },
-    toggleModal: () => {
-      dispatch(toggleConfigModal())
     },
     setMessageWithTimeout: (msg, type) => {
       dispatch(setMessageWithTimeout(msg, type))

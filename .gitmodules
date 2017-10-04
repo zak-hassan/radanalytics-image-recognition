@@ -1,0 +1,3 @@
+[submodule "app/frontend/pf-lib"]
+	path = app/frontend/pf-lib
+	url = https://github.com/zmhassan/reactjs-redux-patternfly-library

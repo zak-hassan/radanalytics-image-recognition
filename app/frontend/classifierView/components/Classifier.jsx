@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import ClassificationResult from "../components/ClassificationResult.jsx";
-import ClassificationFeedback from "../components/ClassificationFeedback.jsx";
-import ButtonComponent from '../components/ButtonModal.jsx';
+import ClassificationResult from "./ClassificationResult.jsx";
+import ClassificationFeedback from "./ClassificationFeedback.jsx";
+import ButtonComponent from '../../pf-lib/modal/containers/ButtonModal.jsx';
+import { MODALS } from '../../configs.jsx';
 
 class Classifier extends Component {
   static get propTypes() {
@@ -10,8 +11,6 @@ class Classifier extends Component {
       classification: PropTypes.array,
       file: PropTypes.object,
       setImageClassification: PropTypes.func,
-      toggleModal: PropTypes.func,
-      modalState: PropTypes.bool,
       selectedOption: PropTypes.number,
       setSelectedOption: PropTypes.func,
       executingSave: PropTypes.bool,
@@ -70,7 +69,7 @@ class Classifier extends Component {
     if(this.props.executingSave) {
       feedBackButton = <div className="spinner spinner-inline config-save-spinner pull-right"/>
     } else {
-      feedBackButton = <ButtonComponent toggleModal={this.props.toggleModal} content={content}/>
+      feedBackButton = <ButtonComponent mid={MODALS.FEEDBACK_MODAL} content={content}/>
     }
 
     return (
@@ -102,8 +101,6 @@ class Classifier extends Component {
             <div className="resultsFeedback">
               <ClassificationFeedback
                 imageFile={this.props.file}
-                toggleModal={this.props.toggleModal}
-                modalState={this.props.modalState}
                 selectedOption={this.props.selectedOption}
                 setSelectedOption={this.props.setSelectedOption}
                 handleFeedBackPOST={this.props.handleFeedBackPOST}
@@ -116,5 +113,5 @@ class Classifier extends Component {
   }
 }
 
-
 export default Classifier;
+

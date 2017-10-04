@@ -1,7 +1,7 @@
-import { STATS } from "./constants"
+import { STATS } from "../constants"
 
 import $ from "jquery";
-import { setMessage } from "./messageActions";
+import { setMessage } from "../pf-lib/message/messageActions";
 
 export function setLastResultDate(date) {
   return {

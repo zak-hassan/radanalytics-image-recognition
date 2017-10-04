@@ -4,14 +4,9 @@ import PropTypes from "prop-types";
 import ImageUploader from "../components/ImageUploader.jsx";
 import Classifier from "../components/Classifier.jsx";
 import {
-  setUploadFile,
-  setImageClassification,
-  setSelectedOption,
-  setExecutingSave,
-  handleFeedBackPOST
-} from "../actions/imageClassifierActions";
-import { setMessageWithTimeout } from "../actions/messageActions";
-import { toggleClassModal } from '../actions/modalActions';
+  setUploadFile, setImageClassification, setSelectedOption,
+  setExecutingSave,handleFeedBackPOST } from "../imageClassifierActions";
+import { setMessageWithTimeout } from "../../pf-lib/message/messageActions";
 
 class ImageClassifierView extends Component {
   static get propTypes() {
@@ -44,8 +39,6 @@ class ImageClassifierView extends Component {
               <Classifier file={this.props.file}
                 classification={this.props.classification}
                 setImageClassification={this.props.setImageClassification}
-                toggleModal={this.props.toggleModal}
-                modalState={this.props.modalState}
                 setSelectedOption={this.props.setSelectedOption}
                 selectedOption={this.props.selectedOption}
                 setExecutingSave={this.props.setExecutingSave}
@@ -63,7 +56,6 @@ const mapStateToProps = (state) => {
   return {
     file: state.imageClassificationReducer.file,
     classification: state.imageClassificationReducer.classification,
-    modalState: state.modalReducer.class_modal,
     selectedOption: state.imageClassificationReducer.selectedOption,
     executingSave: state.imageClassificationReducer.executingSave,
   }
@@ -82,9 +74,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     setMessageWithTimeout: (msg, type) => {
       dispatch(setMessageWithTimeout(msg, type))
-    },
-    toggleModal: () => {
-      dispatch(toggleClassModal())
     },
     setSelectedOption: (selection) => {
       dispatch(setSelectedOption(selection))
