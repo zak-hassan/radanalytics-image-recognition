@@ -79,13 +79,18 @@ export function handleConfigPOST(event, futureValues){
     event.preventDefault();
     const url = '/api/v1/settings';
 
+    let updatedValues = { "config": {}};
+    let configKeys = Object.keys(futureValues);
+    configKeys.map(key => {
+      updatedValues.config[key] = futureValues[key].placeholder;
+    });
+
     return(dispatch) => {
-      let payLoad = {config: futureValues};
       dispatch(setExecutingSaveStatus(true));
       $.ajax({
         type: 'POST',
         url: url,
-        data: JSON.stringify(payLoad),
+        data: JSON.stringify(updatedValues),
         dataType: 'json',
         contentType: 'application/json',
         success: function (result) {
