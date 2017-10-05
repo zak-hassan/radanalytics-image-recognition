@@ -121,27 +121,8 @@ def get_images():
         json.dumps(os.listdir(app.config['UPLOAD_FOLDER'])),
         status=200, mimetype="application/json")
 
-@basepage.route("/api/v1/historyServer", methods=['GET'])
-def get_history():
-    mock_data={
-	"last_transaction": "july-27-4:00pm",
-	"time_taken": "2.5s",
-	"num_pages": 2,
-	"num_results": 12,
-	"results": [{
-			"filename": "tiger.jpeg",
-			"classification": "tiger",
-			"percentage": 84.1865
-		},
-		{
-			"filename": "weasel.jpeg",
-			"classification": "weasel",
-			"percentage": 58.4949
-		}]
-    }
-    return Response(json.dumps(mock_data), status=200, mimetype="application/json")
 
-@basepage.route("/api/v1/mock/historyServer", methods=['GET'])
+@basepage.route("/api/v1/historyServer", methods=['GET'])
 def get_jdg_history():
     hostname= os.getenv('JDG_HOSTNAME','0.0.0.0')
     basepath=os.getenv('BASE_PATH','/Users/zhassan/git/radanalytics-image-recognition/')
