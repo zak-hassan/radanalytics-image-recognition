@@ -56,23 +56,11 @@ def set_settings():
                     'description': "A link to the Pre-trained inception model."},
                 "upload_folder": {
                     'data': app.config['UPLOAD_FOLDER'],
-                    'description': "A (relative) path to where the server "
-                                   "uploads the images."},
+                    'description': "A (relative) path to where the server uploads the images."},
                 "allowed_Extensions": {
-                    'data': 'jpeg,jpg',
-                    'description': "A list of comma-separated file extensions "
-                                   "that the model will accept."},
-                "model_folder_name": {
-                    'data': '.model',
-                    'description': "The name of the folder that stores "
-                                   "the pre-trained model."},
-                "model_folder_location": {
-                    'data': "old/path/to/model/folder/location",
-                    'description': "A link to the Pre-trained inception model."},
-                "image_folder": {
-                    'data': '.img_folder',
-                    'description': 'The name of the folder that stores uploaded'
-                                   'images.'}
+                    'data': app.config['ALLOWED_EXTENSIONS'],
+                    'description': "A list of comma-separated file extensions that the model will accept."
+                }
             }
         }
 
@@ -94,23 +82,10 @@ def set_settings():
                     "field": "allowed_Extensions",
                     "new_value": "jpeg,jpg,png",
                     "status": "changed"
-                },
-                {
-                    "field": "model_folder_name",
-                    "new_value": ".new_model_folder_name",
-                    "status": "changed"
-                },
-                {
-                    "field": "model_folder_location",
-                    "new_value": "new/path/to/model/folder",
-                    "status": "changed"
-                },
-                {
-                    "field": "image_folder",
-                    "new_value": "new/path/to/image/folder",
-                    "status": "changed"
-                },
+                }
             ]}
+
+
 
         return Response(json.dumps(mock_data), status=200, mimetype="application/json")
 
@@ -125,7 +100,7 @@ def get_images():
 @basepage.route("/api/v1/historyServer", methods=['GET'])
 def get_jdg_history():
     hostname= os.getenv('JDG_HOSTNAME','0.0.0.0')
-    basepath=os.getenv('BASE_PATH','/Users/zhassan/git/radanalytics-image-recognition/')
+    basepath=os.getenv('BASE_PATH','/opt/imagerecognize/')
     remote_cache = RemoteCache(host=hostname)
     os.chdir(basepath)
     files=glob.glob(".rad-img-recog/*")
