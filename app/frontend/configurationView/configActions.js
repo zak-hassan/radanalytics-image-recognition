@@ -79,12 +79,17 @@ export function handleConfigPOST(event, futureValues){
     event.preventDefault();
     const url = '/api/v1/settings';
 
-    let updatedValues = { "config": {}};
+    let updatedValues = { "config": []};
     let configKeys = Object.keys(futureValues);
     configKeys.map(key => {
-      updatedValues.config[key] = futureValues[key].placeholder;
+      let item = {};
+      item.field = key;
+      item.new_value = futureValues[key].placeholder;
+      updatedValues.config.push(item);
     });
 
+    console.log(updatedValues);
+    
     return(dispatch) => {
       dispatch(setExecutingSaveStatus(true));
       $.ajax({
