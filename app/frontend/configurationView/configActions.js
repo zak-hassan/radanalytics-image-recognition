@@ -87,9 +87,7 @@ export function handleConfigPOST(event, futureValues){
       item.new_value = futureValues[key].placeholder;
       updatedValues.config.push(item);
     });
-
-    console.log(updatedValues);
-    
+   
     return(dispatch) => {
       dispatch(setExecutingSaveStatus(true));
       $.ajax({
