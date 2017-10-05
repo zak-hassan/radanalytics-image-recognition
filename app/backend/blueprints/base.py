@@ -7,6 +7,8 @@ import json
 from app.backend.inception import inception
 from infinispan.remotecache import RemoteCache
 import datetime
+from timeit import default_timer as timer
+import glob
 
 try:
     # Python2
@@ -33,8 +35,7 @@ def allowed_file(filename):
 
 @basepage.route("/api/v1/stats", methods=['POST'])
 def store_stats():
-    import time
-    time.sleep(2)
+
     mock_data = {}
     file = request.files['file']
     # Option takes the form of an int in [1, 2, 3]
@@ -140,7 +141,37 @@ def get_history():
     }
     return Response(json.dumps(mock_data), status=200, mimetype="application/json")
 
-
+@basepage.route("/api/v1/mock/historyServer", methods=['GET'])
+def get_jdg_history():
+    hostname= os.getenv('JDG_HOSTNAME','0.0.0.0')
+    basepath=os.getenv('BASE_PATH','/Users/zhassan/git/radanalytics-image-recognition/')
+    remote_cache = RemoteCache(host=hostname)
+    os.chdir(basepath)
+    files=glob.glob(".rad-img-recog/*")
+    mock_data={}
+    mock_data["results"]=[]
+    for f in files:
+        name=remote_cache.get((f.split("/")[1]))
+        data =json.loads(name)
+        mock_data["results"].append({
+            "filename": f.split("/")[1],
+            "classification": data["pred"][0][1],
+            "percentage":data["pred"][0][0]
+        })
+    mock_data['time_taken']=remote_cache.get("time_taken")
+    mock_data['last_transaction']=remote_cache.get("last_transaction")
+    if (len(files) <10):
+        mock_data["num_results"]=len(files)
+        mock_data["num_pages"]=1
+    else:
+        mock_data["num_results"]=len(files)
+        total_files=len(files)
+        num= total_files/10
+        if( total_files %10 != 0):
+            num= num+1
+        mock_data["num_pages"]= num
+    print (mock_data)
+    return Response(json.dumps(mock_data), status=200, mimetype="application/json")
 
 @basepage.route("/api/v1/images/<image_name>")
 def serve_image(image_name):
@@ -149,6 +180,7 @@ def serve_image(image_name):
 
 @basepage.route("/api/v1/imgrecognize", methods=['POST', 'GET'])
 def img_recognize():
+    start = timer()
 
     if not os.path.exists(app.config['UPLOAD_FOLDER']):
         os.makedirs(app.config['UPLOAD_FOLDER'])
@@ -171,16 +203,23 @@ def img_recognize():
     model.close()
 
     #Getting environment variable or using default localhost
-    hostname=os.getenv('JDG_HOSTNAME','localhost')
+    hostname=os.getenv('JDG_HOSTNAME','0.0.0.0')
 
     remote_cache = RemoteCache(host=hostname)
-    time = datetime.datetime.now().strftime("%B-%d-%Y-%I:%M%p")
-    key= filename + time
-    remote_cache.put(key, json.dumps({'pred':scores, 'timestamp': time , 'filename': filename}) )
+    times = datetime.datetime.now().strftime("%B-%d-%Y-%I:%M%p")
+    key= filename
+    remote_cache.put("last_transaction", datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    remote_cache.put(key, json.dumps({'pred':scores, 'timestamp': times , 'filename': filename}) )
     print remote_cache.stats()
     print "Key: %s" % key
     # Send data
     resp = {'pred': scores}
+
+    end = timer()
+    total=end - start
+
+
+    remote_cache.put( "time_taken" , str(total) )
 
     return Response(
         json.dumps(resp),
