@@ -1,10 +1,10 @@
 from flask import jsonify, request, Response, Blueprint, render_template, send_file
 from flask import current_app as app
+from app.backend.inception import inception
 import os.path
 import os
 from werkzeug.utils import secure_filename
 import json
-from app.backend.inception import inception
 from infinispan.remotecache import RemoteCache
 import datetime
 from timeit import default_timer as timer
@@ -66,28 +66,43 @@ def set_settings():
 
         return Response(json.dumps(mock_data), status=200, mimetype="application/json")
     else:  # POST
-        mock_data = {
-            "config_change": [
-                {
-                    "field": "training_model_uri",
-                    "new_value": "http://new/uri/to/trained_model/uri",
-                    "status": "changed"
-                },
-                {
-                    "field": "upload_folder",
-                    "new_value": "new/path/to/upload/folder",
-                    "status": "changed"
-                },
-                {
-                    "field": "allowed_Extensions",
-                    "new_value": "jpeg,jpg,png",
-                    "status": "changed"
-                }
-            ]}
 
+        data = request.data
+        dataDict = json.loads(data)
+        print("QUERY: "+dataDict.get("query"))
+        config_change={}
+        config_change["config_change"]=[]
+        for con in dataDict.get("config"):
+            config_change["config_change"].append({ "field":con.get("field"),
+                                                    "new_value":con.get("new_value"),
+                                                    "status": "changed"})
+        # TODO: Validate that field is in the list of correct keys:
+        # ['UPLOAD_FOLDER','IMAGE_FILE','ALLOWED_EXTENSIONS','INCEPTION_MODEL','TRAINED_MODEL_URL']
+        app.config[con.get("field").upper()]=con.get("new_value")
 
-
-        return Response(json.dumps(mock_data), status=200, mimetype="application/json")
+        return Response(json.dumps(config_change), status=200, mimetype="application/json")
+        #
+        # mock_data = {
+        #     "config_change": [
+        #         {
+        #             "field": "training_model_uri",
+        #             "new_value": "http://new/uri/to/trained_model/uri",
+        #             "status": "changed"
+        #         },
+        #         {
+        #             "field": "upload_folder",
+        #             "new_value": "new/path/to/upload/folder",
+        #             "status": "changed"
+        #         },
+        #         {
+        #             "field": "allowed_Extensions",
+        #             "new_value": "jpeg,jpg,png",
+        #             "status": "changed"
+        #         }
+        #     ]}
+        #
+        #
+        # return Response(json.dumps(mock_data), status=200, mimetype="application/json")
 
 
 @basepage.route("/api/v1/images", methods=['POST','GET'])
@@ -102,13 +117,16 @@ def get_jdg_history():
     hostname= os.getenv('JDG_HOSTNAME','0.0.0.0')
     basepath=os.getenv('BASE_PATH','/opt/imagerecognize/')
     remote_cache = RemoteCache(host=hostname)
-    os.chdir(basepath)
+    #os.chdir(basepath)
+
     files=glob.glob(".rad-img-recog/*")
     mock_data={}
     mock_data["results"]=[]
+    bulk_data= remote_cache.bulk_get()
     for f in files:
-        name=remote_cache.get((f.split("/")[1]))
+        name=bulk_data[(f.split("/")[1])]
         data =json.loads(name)
+        #print data
         mock_data["results"].append({
             "filename": f.split("/")[1],
             "classification": data["pred"][0][1],
@@ -116,6 +134,7 @@ def get_jdg_history():
         })
     mock_data['time_taken']=remote_cache.get("time_taken")
     mock_data['last_transaction']=remote_cache.get("last_transaction")
+
     if (len(files) <10):
         mock_data["num_results"]=len(files)
         mock_data["num_pages"]=1

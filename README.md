@@ -46,6 +46,15 @@ docker run   -p 8081:8081  docker.io/zmhassan/tensorflow-image-recognition
 
 ```
 
+To run this image recognition app on openshift run the script :
+
+```bash
+
+./deploy-openshift.sh
+
+```
+Note: You will need to create a route.
+
 # Prometheus endpoint
 
 The prometheus endpoint can be access via port 18081
