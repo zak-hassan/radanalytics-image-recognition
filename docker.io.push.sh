@@ -6,8 +6,11 @@ COMPONENT="image-recognition-service"
 #cleaning up the image folder:
 rm -rf .rad-img-recog/*
 
-# docker run   -p 8081:8081  docker.io/zmhassan/tensorflow-image-recognition
-docker   build  --rm -t  tensorflow-image-recognition  .
+K8_MODEL_VERSION=docker.io/zmhassan/tensorflow-image-recognition:v2
+IMAGE_NAME=tensorflow-image-recognition
 
-docker tag  tensorflow-image-recognition docker.io/zmhassan/tensorflow-image-recognition
-docker push  docker.io/zmhassan/tensorflow-image-recognition
+# docker run   -p 8081:8081  docker.io/zmhassan/tensorflow-image-recognition
+docker   build  --rm -t  $IMAGE_NAME  .
+
+docker tag  $IMAGE_NAME $K8_MODEL_VERSION
+docker push  $K8_MODEL_VERSION
