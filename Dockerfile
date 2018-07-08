@@ -26,7 +26,7 @@ ENV TENSORBOARD_LOG_DIR /workspace
 RUN echo 'PS1="\u@\h:\w\\$ \[$(tput sgr0)\]"' >> /root/.bashrc \
     && mkdir -p /tf \
     && yum install -y curl wget bzip2 gnupg2 sqlite3 \
-    && yum install -y epel-release tar git \
+    && yum install -y epel-release tar git  libXext libSM libXrender \
     && yum clean all -y \
     && chgrp -R root /opt \
     && chmod -R ug+rwx /opt \
@@ -56,6 +56,7 @@ RUN echo 'PS1="\u@\h:\w\\$ \[$(tput sgr0)\]"' >> /root/.bashrc \
                 nltk \
                 gitpython \
                 requests \
+    && conda install --channel https://conda.anaconda.org/menpo opencv3 \
     && yum erase -y gcc gcc-c++ glibc-devel \
     && yum clean all -y \
     && rm -rf /root/.npm \

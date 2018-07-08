@@ -7,7 +7,7 @@ COMPONENT="image-recognition-service"
 rm -rf .rad-img-recog/*
 
 K8_MODEL_VERSION=docker.io/zmhassan/tensorflow-image-recognition:v2
-IMAGE_NAME=tensorflow-image-recognition
+IMAGE_NAME=tensorflow-image-recognition:v2
 
 # docker run   -p 8081:8081  docker.io/zmhassan/tensorflow-image-recognition
 docker   build  --rm -t  $IMAGE_NAME  .
